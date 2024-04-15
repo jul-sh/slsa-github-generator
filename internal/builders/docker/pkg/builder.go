@@ -482,30 +482,27 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 	var files []string
 	for _, reader := range readers {
 		var allBytes []byte
+		if verbose {
+			fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
+		}
 
-		for _, reader := range readers {
-			if verbose {
-				fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
-			}
-
-			scanner := bufio.NewScanner(reader)
-			for scanner.Scan() {
-				bytes := scanner.Bytes()
-				allBytes = append(allBytes, bytes...)
-				allBytes = append(allBytes, '\n')
-
-				if verbose {
-					fmt.Printf("%s\n", bytes)
-				}
-			}
+		scanner := bufio.NewScanner(reader)
+		for scanner.Scan() {
+			bytes := scanner.Bytes()
+			allBytes = append(allBytes, bytes...)
+			allBytes = append(allBytes, '\n')
 
 			if verbose {
-				fmt.Print("=================================================\n\n\n")
+				fmt.Printf("%s\n", bytes)
 			}
+		}
 
-			if err := scanner.Err(); err != nil {
-				return files, fmt.Errorf("error reading from command output: %v", err)
-			}
+		if verbose {
+			fmt.Print("=================================================\n\n\n")
+		}
+
+		if err := scanner.Err(); err != nil {
+			return files, fmt.Errorf("error reading from command output: %v", err)
 		}
 
 		tmpfile, err := os.CreateTemp("", "log-*.txt")
