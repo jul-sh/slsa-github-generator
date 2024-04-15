@@ -481,16 +481,30 @@ func (c *GitClient) checkoutGitCommit() error {
 func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 	var files []string
 	for _, reader := range readers {
-		bytes, err := io.ReadAll(reader)
-		if err != nil {
-			return files, err
-		}
+		var allBytes []byte
 
-		if verbose {
-			if len(bytes) > 0 {
+		for _, reader := range readers {
+			if verbose {
 				fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
-				fmt.Printf("%s", bytes)
+			}
+
+			scanner := bufio.NewScanner(reader)
+			for scanner.Scan() {
+				bytes := scanner.Bytes()
+				allBytes = append(allBytes, bytes...)
+				allBytes = append(allBytes, '\n')
+
+				if verbose {
+					fmt.Printf("%s\n", bytes)
+				}
+			}
+
+			if verbose {
 				fmt.Print("=================================================\n\n\n")
+			}
+
+			if err := scanner.Err(); err != nil {
+				return files, fmt.Errorf("error reading from command output: %v", err)
 			}
 		}
 
@@ -499,7 +513,7 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 			return files, fmt.Errorf("couldn't create tempfile: %v", err)
 		}
 
-		if _, err := tmpfile.Write(bytes); err != nil {
+		if _, err := tmpfile.Write(allBytes); err != nil {
 			tmpfile.Close()
 			return files, fmt.Errorf("couldn't write bytes to tempfile: %v", err)
 		}
