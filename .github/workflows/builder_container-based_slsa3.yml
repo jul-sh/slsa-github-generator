@@ -392,6 +392,8 @@ jobs:
         run: |
           set -euo pipefail
 
+          echo "PATCHED VERSION jul-sh/"
+
           REF="@${GITHUB_REF}"
           if [[ "${GITHUB_EVENT_NAME}" == "pull_request" ]]; then
             REF=""
