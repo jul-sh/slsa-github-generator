@@ -488,7 +488,7 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 
 		if verbose {
 			if len(bytes) > 0 {
-				fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
+				fmt.Print("\n\n>>>>>>>>>>>>>> output from command (unpatched fork) <<<<<<<<<<<<<<\n")
 				fmt.Printf("%s", bytes)
 				fmt.Print("=================================================\n\n\n")
 			}
