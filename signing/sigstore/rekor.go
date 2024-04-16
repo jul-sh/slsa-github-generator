@@ -18,11 +18,11 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/jul-sh/slsa-github-generator/signing"
 	"github.com/sigstore/cosign/v2/pkg/cosign"
 	"github.com/sigstore/rekor/pkg/client"
 	"github.com/sigstore/rekor/pkg/generated/client/entries"
 	"github.com/sigstore/rekor/pkg/generated/models"
-	"github.com/slsa-framework/slsa-github-generator/signing"
 )
 
 const (

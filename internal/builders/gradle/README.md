@@ -42,10 +42,10 @@ tampered with.
 The Gradle builder is currently in alpha. The API could change while approaching
 a Generally Available (GA) release. You can track progress towards General
 Availability via
-[this milestone](https://github.com/slsa-framework/slsa-github-generator/milestone/15).
+[this milestone](https://github.com/jul-sh/slsa-github-generator/milestone/15).
 
 Please try it out and
-[create an issue](https://github.com/slsa-framework/slsa-github-generator/issues/new)
+[create an issue](https://github.com/jul-sh/slsa-github-generator/issues/new)
 to send us feedback!
 
 ## Limitations
@@ -83,7 +83,7 @@ jobs:
       id-token: write
       contents: read
       actions: read
-    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@v1.10.0
+    uses: jul-sh/slsa-github-generator/.github/workflows/builder_gradle_slsa3.yml@v1.10.0
     with:
       artifact-list: >-
         ./build/artifact1.jar,
@@ -114,11 +114,11 @@ tasks.named("build") {
 This, for example, will move `./app1/build/` and `./app2/build/` to `./build/app1/` and `./build/app2/`. You must then alter your input to `artifact-list`.
 
 ```yaml
-...
-      artifact-list: >-
-        ./build/app1/libs/app.jar,
-        ./build/app2/libs/app.jar,
-...
+
+---
+artifact-list: >-
+  ./build/app1/libs/app.jar,
+  ./build/app2/libs/app.jar,
 ```
 
 ### Private Repositories
@@ -134,11 +134,11 @@ If you do not set this flag then private repositories will generate an error in
 order to prevent leaking repository name information.
 
 Support for private transparency log instances that would not leak repository
-name information is tracked on [issue #372](https://github.com/slsa-framework/slsa-github-generator/issues/372).
+name information is tracked on [issue #372](https://github.com/jul-sh/slsa-github-generator/issues/372).
 
 ## Verification
 
 The `slsa-verifier` tool can verify `.jar` artifacts against their provenance statements.
 
-Please see the [documentation](https://github.com/slsa-framework/slsa-verifier)
+Please see the [documentation](https://github.com/jul-sh/slsa-verifier)
 for more information.

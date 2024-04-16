@@ -32,7 +32,7 @@ export function decodeToken(federatedToken: string): githubClaimsType {
 }
 
 export async function detectWorkflowFromOIDC(
-  aud: string,
+  aud: string
 ): Promise<[string, string, string]> {
   const id_token = await core.getIDToken(aud);
   const decoded = decodeToken(id_token);
@@ -61,7 +61,7 @@ export async function detectWorkflowFromOIDC(
 
 export async function detectWorkflowFromContext(
   repoName: string,
-  token: string,
+  token: string
 ): Promise<[string, string, string]> {
   const [owner, repo] = repoName.split("/");
   const octokit = github.getOctokit(token);
@@ -75,20 +75,20 @@ export async function detectWorkflowFromContext(
 
   if (!workflowData.referenced_workflows) {
     return Promise.reject(
-      Error(`No reusable workflows detected ${JSON.stringify(workflowData)}.`),
+      Error(`No reusable workflows detected ${JSON.stringify(workflowData)}.`)
     );
   }
 
   let [repository, ref, workflow] = ["", "", ""];
 
   // If this is a pull request on the main repository
-  // (slsa-framework/slsa-github-generator), then look for the repo and head
+  // (jul-sh/slsa-github-generator), then look for the repo and head
   // SHA from the pull_request event value. Pull requests on forks are not
   // supported.
   if (
     (workflowData.event === "pull_request" ||
       workflowData.event === "merge_group") &&
-    workflowData.repository.full_name === "slsa-framework/slsa-github-generator"
+    workflowData.repository.full_name === "jul-sh/slsa-github-generator"
   ) {
     ref = workflowData.head_sha;
     repository = workflowData.head_repository.full_name;
@@ -109,8 +109,8 @@ export async function detectWorkflowFromContext(
         if (!reusableWorkflow.ref) {
           return Promise.reject(
             Error(
-              "Referenced slsa-github-generator workflow missing ref: was the workflow invoked by digest?",
-            ),
+              "Referenced slsa-github-generator workflow missing ref: was the workflow invoked by digest?"
+            )
           );
         }
         const tmpRepository = [workflowOwner, workflowRepo].join("/");

@@ -37,7 +37,7 @@ describe("generatePredicate", () => {
       "octo-org/octo-automation/.github/workflows/oidc.yml@refs/heads/main";
 
     const builderBinaryRef = {
-      uri: "git+https://github.com/slsa-framework/example-builder",
+      uri: "git+https://github.com/jul-sh/example-builder",
       digest: {
         sha256:
           "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -49,7 +49,7 @@ describe("generatePredicate", () => {
       run_attempt: 1,
       repository: {
         name: "example-source",
-        full_name: "slsa-framework/example-source",
+        full_name: "jul-sh/example-source",
         id: 123,
         owner: {
           id: 456,
@@ -64,7 +64,7 @@ describe("generatePredicate", () => {
     };
 
     const source = {
-      uri: "git+https://github.com/slsa-framework/example-source",
+      uri: "git+https://github.com/jul-sh/example-source",
       digest: {
         sha1: "97f1bfd54b02d1c7b632da907676a7d30d2efc02",
       },
@@ -82,7 +82,7 @@ describe("generatePredicate", () => {
       bd,
       builderBinaryRef,
       jobWorkflowRef,
-      currentRun,
+      currentRun
     ) as types.SLSAv1Predicate;
 
     expect(pred.runDetails.builder.id).toBe(jobWorkflowRef);

@@ -17,10 +17,10 @@
 set -euo pipefail
 
 # Caller sets the following:
-#BUILDER_REPOSITORY="slsa-framework/slsa-github-generator"
+#BUILDER_REPOSITORY="jul-sh/slsa-github-generator"
 #BUILDER_RELEASE_BINARY="builder-linux-amd64"
 #
-#VERIFIER_REPOSITORY="slsa-framework/slsa-verifier"
+#VERIFIER_REPOSITORY="jul-sh/slsa-verifier"
 #VERIFIER_RELEASE="v13.0.10"
 #VERIFIER_RELEASE_BINARY="slsa-verifier-linux-amd64"
 #VERIFIER_RELEASE_BINARY_SHA256="89fbcba9aed67d5146ea99946c7e4e5a80e3767871f0e3ffcd0b582134efd010"
@@ -67,7 +67,7 @@ fi
 
 if [[ "$builder_tag" != "$(echo -n "$builder_tag" | grep -oe '^v[1-9]\+\.[0-9]\+\.[0-9]\+\(-rc\.[0-9]\+\)\?$')" ]]; then
     echo "Invalid builder version: $builder_tag. Expected version of the form vX.Y.Z(-rc.A)"
-    echo "For details see https://github.com/slsa-framework/slsa-github-generator/blob/main/README.md#referencing-slsa-builders-and-generators"
+    echo "For details see https://github.com/jul-sh/slsa-github-generator/blob/main/README.md#referencing-slsa-builders-and-generators"
     exit 7
 fi
 

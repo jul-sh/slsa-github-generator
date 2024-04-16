@@ -1,7 +1,7 @@
 # Contributor Guide
 
 This guide will help you understand the overall organization of the
-[slsa-github-generator](https://github.com/slsa-framework/slsa-github-generator)
+[slsa-github-generator](https://github.com/jul-sh/slsa-github-generator)
 project, and direct you to the best places to get started contributing. You'll
 be able to pick up issues, write code to fix them, and get your work reviewed
 and merged.
@@ -53,7 +53,7 @@ can contribute.
 
 If you don't find an existing issue for your contribution feel free to [create a
 new
-one](https://github.com/slsa-framework/slsa-github-generator/issues/new/choose).
+one](https://github.com/jul-sh/slsa-github-generator/issues/new/choose).
 
 ## Development
 
@@ -115,7 +115,7 @@ Since this project includes reusable workflows for use on GitHub Actions local
 development is limited to building and testing the binaries used by the reusable
 workflows. The workflows themselves must be tested in your own fork. You can
 fork the slsa-github-generator repo via the [Fork
-button](https://github.com/slsa-framework/slsa-github-generator/fork).
+button](https://github.com/jul-sh/slsa-github-generator/fork).
 
 #### Create a test repo
 
@@ -226,10 +226,10 @@ make ts-test
 
 This project has a number of End-to-End tests that are scheduled to run daily.
 These tests are located in the
-[`example-package`](https://github.com/slsa-framework/example-package/tree/main/.github/workflows)
+[`example-package`](https://github.com/jul-sh/example-package/tree/main/.github/workflows)
 repository and include a number of testing workflows. Please read the e2e
 testing
-[`README.md`](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/README.md)
+[`README.md`](https://github.com/jul-sh/example-package/blob/main/.github/workflows/README.md)
 for more information about e2e tests.
 
 ### Linters
@@ -259,12 +259,12 @@ channel in the [OpenSSF Slack](https://slack.openssf.org/) is used for
 communication and sharing ideas.
 
 Communication about bugs, usage, and new feature development is also done on
-[GitHub issues](https://github.com/slsa-framework/slsa-github-generator/issues).
+[GitHub issues](https://github.com/jul-sh/slsa-github-generator/issues).
 
-[code of conduct]: https://github.com/slsa-framework/governance/blob/main/8._Code_of_Conduct.md
+[code of conduct]: https://github.com/jul-sh/governance/blob/main/8._Code_of_Conduct.md
 [conventional commits]: https://www.conventionalcommits.org/en/v1.0.0/
 [developer certificate of origin]: https://developercertificate.org/
 [license]: ./LICENSE
-[good first issue]: https://github.com/slsa-framework/slsa-github-generator/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
-[help wanted]: https://github.com/slsa-framework/slsa-github-generator/issues?q=is%3Aissue+is%3Aopen+label%3A%22status%3Ahelp+wanted%22
-[open issues]: https://github.com/slsa-framework/slsa-github-generator/issues
+[good first issue]: https://github.com/jul-sh/slsa-github-generator/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22
+[help wanted]: https://github.com/jul-sh/slsa-github-generator/issues?q=is%3Aissue+is%3Aopen+label%3A%22status%3Ahelp+wanted%22
+[open issues]: https://github.com/jul-sh/slsa-github-generator/issues

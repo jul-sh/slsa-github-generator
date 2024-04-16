@@ -181,7 +181,7 @@ jobs:
       id-token: write
       contents: read
     needs: args
-    uses: slsa-framework/slsa-github-generator-go/.github/workflows/builder.yml@<somehash>
+    uses: jul-sh/slsa-github-generator-go/.github/workflows/builder.yml@<somehash>
     with:
       go-version: 1.17
 
@@ -240,7 +240,7 @@ Given an artifact and a signed provenance, we perform the following steps:
 
 A consumer performing these steps has the guarantee that the binary they consume was produced in the trusted builder at a given commit hash attested to in the provenance.
 
-The provenance verification demo code is hosted [here](https://github.com/slsa-framework/slsa-verifier). An example output shows that we can retrieve the caller repository, trigger and reference where the artifact was built that consumers may use:
+The provenance verification demo code is hosted [here](https://github.com/jul-sh/slsa-verifier). An example output shows that we can retrieve the caller repository, trigger and reference where the artifact was built that consumers may use:
 
 ```shell
 $ go run main.go --binary ~/Downloads/binary-linux-amd64 --provenance ~/Downloads/binary-linux-amd64.intoto.jsonl --source github.com/asraa/slsa-on-github-test
@@ -249,7 +249,7 @@ verified SLSA provenance produced at
  {
         "caller": "asraa/slsa-on-github-test",
         "commit": "0dfcd24824432c4ce587f79c918eef8fc2c44d7b",
-        "job_workflow_ref": "/slsa-framework/slsa-github-generator-go/.github/workflows/builder.yml@refs/heads/main",
+        "job_workflow_ref": "/jul-sh/slsa-github-generator-go/.github/workflows/builder.yml@refs/heads/main",
         "trigger": "workflow_dispatch",
         "issuer": "https://token.actions.githubusercontent.com"
 }
@@ -300,4 +300,4 @@ Here we explain how SLSA requirements can be achieved:
 
 ### Source-level provenance
 
-Review provenance can be added as an additional isolated job within the reusable workflow. We can add review information for all commits since the last release, for example. As of December 2023, source-level requirements are being worked on by the SLSA WG: refer to [slsa-framework/slsa/issues/956](https://github.com/slsa-framework/slsa/issues/956) for additional information.
+Review provenance can be added as an additional isolated job within the reusable workflow. We can add review information for all commits since the last release, for example. As of December 2023, source-level requirements are being worked on by the SLSA WG: refer to [jul-sh/slsa/issues/956](https://github.com/jul-sh/slsa/issues/956) for additional information.

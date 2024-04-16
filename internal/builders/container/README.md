@@ -73,7 +73,7 @@ provenance:
     id-token: write # for creating OIDC tokens for signing.
     packages: write # for uploading attestations.
   if: startsWith(github.ref, 'refs/tags/')
-  uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
+  uses: jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
   with:
     image: ${{ needs.build.outputs.image }}
     digest: ${{ needs.build.outputs.digest }}
@@ -144,7 +144,7 @@ jobs:
       id-token: write # for creating OIDC tokens for signing.
       packages: write # for uploading attestations.
     if: startsWith(github.ref, 'refs/tags/')
-    uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
+    uses: jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
     with:
       image: ${{ needs.build.outputs.image }}
       digest: ${{ needs.build.outputs.digest }}
@@ -181,7 +181,7 @@ If you do not set this flag then private repositories will generate an error in
 order to prevent leaking repository name information.
 
 Support for private transparency log instances that would not leak repository
-name information is tracked on [issue #372](https://github.com/slsa-framework/slsa-github-generator/issues/372).
+name information is tracked on [issue #372](https://github.com/jul-sh/slsa-github-generator/issues/372).
 
 ### Supported Triggers
 
@@ -194,13 +194,13 @@ The following [GitHub trigger events](https://docs.github.com/en/actions/using-w
 
 However, in practice, most triggers should work with the exception of
 `pull_request`. If you would like support for `pull_request`, please tell us
-about your use case on [issue #358](https://github.com/slsa-framework/slsa-github-generator/issues/358). If
+about your use case on [issue #358](https://github.com/jul-sh/slsa-github-generator/issues/358). If
 you have an issue in all other triggers please submit a [new
-issue](https://github.com/slsa-framework/slsa-github-generator/issues/new/choose).
+issue](https://github.com/jul-sh/slsa-github-generator/issues/new/choose).
 
 ### Workflow Inputs
 
-The [container workflow](https://github.com/slsa-framework/slsa-github-generator/blob/main/.github/workflows/generator_container_slsa3.yml) accepts the following inputs:
+The [container workflow](https://github.com/jul-sh/slsa-github-generator/blob/main/.github/workflows/generator_container_slsa3.yml) accepts the following inputs:
 
 Inputs:
 
@@ -214,22 +214,22 @@ Inputs:
 | `continue-on-error`              | Set to true to ignore errors. This option is useful if you won't want a failure to fail your entire workflow.<br>Default: `false`                                                                                                                                                       |
 | `gcp-workload-identity-provider` | The full identifier of the Workload Identity Provider, including the project number, pool name, and provider name. If provided, this must be the full identifier which includes all parts:<br>`projects/123456789/locations/global/workloadIdentityPools/my-pool/providers/my-provider` |
 | `gcp-service-account`            | Email address or unique identifier of the Google Cloud service account for which to generate credentials. For example:<br>`my-service-account@my-project.iam.gserviceaccount.com`                                                                                                       |
-| `provenance-registry-username`   | Username when publishing to provenance registry (option 'provenance-registry') instead of image registry. Either `provenance-registry-username` input or `provenance-registry-username` secret is required.                                                                                                                                                                                                                 |
-| `provenance-registry`            | If set, provenance is pushed to this registry instead of image registry. (e.g. `gcr.io/my-new-repo`)                                                                                          |
+| `provenance-registry-username`   | Username when publishing to provenance registry (option 'provenance-registry') instead of image registry. Either `provenance-registry-username` input or `provenance-registry-username` secret is required.                                                                             |
+| `provenance-registry`            | If set, provenance is pushed to this registry instead of image registry. (e.g. `gcr.io/my-new-repo`)                                                                                                                                                                                    |
 
 Secrets:
 
-| Name                | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-|---------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `image`                        | The OCI image name. This must not include a tag or digest. Either `image` input or `image` secret is **required**. Secret `image` value takes precedence on `image` input value. Should be used in scenarios when the image name contains secret values, and therefore can't be provided directly. Use case - an undisclosed private registry use.                                                                                                                                             |
-| `registry-username`            | Username to log in the container registry. Either `registry-username` input or `registry-username` secret is required. This should only be used for high entropy values such as AWS Access Key as described [here](https://github.com/docker/login-action#aws-elastic-container-registry-ecr). Normal username values could match other input values and cause them to be ignored by GitHub Actions and causing your build to fail. In those cases, use the `registry-username` input instead. |
-| `registry-password`            | **(Required)** Password to log in the container registry.                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `provenance-registry-username` | Username when publishing to provenance registry (option 'provenance-registry') instead of image registry. Either `provenance-registry-username` input or `provenance-registry-username` secret is required. This should only be used for high entropy values such as AWS Access Key as described [here](https://github.com/docker/login-action#aws-elastic-container-registry-ecr). Normal username values could match other input values and cause them to be ignored by GitHub Actions and causing your build to fail. In those cases, use the registry-username input instead.                                                                                                                                                                                            |
-| `provenance-registry-password` | Password when publishing to provenance registry instead of image registry.                                               |
+| Name                           | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `image`                        | The OCI image name. This must not include a tag or digest. Either `image` input or `image` secret is **required**. Secret `image` value takes precedence on `image` input value. Should be used in scenarios when the image name contains secret values, and therefore can't be provided directly. Use case - an undisclosed private registry use.                                                                                                                                                                                                                                |
+| `registry-username`            | Username to log in the container registry. Either `registry-username` input or `registry-username` secret is required. This should only be used for high entropy values such as AWS Access Key as described [here](https://github.com/docker/login-action#aws-elastic-container-registry-ecr). Normal username values could match other input values and cause them to be ignored by GitHub Actions and causing your build to fail. In those cases, use the `registry-username` input instead.                                                                                    |
+| `registry-password`            | **(Required)** Password to log in the container registry.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `provenance-registry-username` | Username when publishing to provenance registry (option 'provenance-registry') instead of image registry. Either `provenance-registry-username` input or `provenance-registry-username` secret is required. This should only be used for high entropy values such as AWS Access Key as described [here](https://github.com/docker/login-action#aws-elastic-container-registry-ecr). Normal username values could match other input values and cause them to be ignored by GitHub Actions and causing your build to fail. In those cases, use the registry-username input instead. |
+| `provenance-registry-password` | Password when publishing to provenance registry instead of image registry.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ### Workflow Outputs
 
-The [container workflow](https://github.com/slsa-framework/slsa-github-generator/blob/main/.github/workflows/generator_container_slsa3.yml) accepts the following outputs:
+The [container workflow](https://github.com/jul-sh/slsa-github-generator/blob/main/.github/workflows/generator_container_slsa3.yml) accepts the following outputs:
 
 | Name      | Description                                                                                     |
 | --------- | ----------------------------------------------------------------------------------------------- |
@@ -239,10 +239,10 @@ The [container workflow](https://github.com/slsa-framework/slsa-github-generator
 
 The project generates SLSA provenance with the following values.
 
-| Name                         | Value                                                                    | Description                                                                                                                                                                                                            |
-| ---------------------------- | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `buildType`                  | `"https://github.com/slsa-framework/slsa-github-generator/container@v1"` | Identifies a the GitHub Actions build.                                                                                                                                                                                 |
-| `metadata.buildInvocationID` | `"[run_id]-[run_attempt]"`                                               | The GitHub Actions [`run_id`](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context) does not update when a workflow is re-run. Run attempt is added to make the build invocation ID unique. |
+| Name                         | Value                                                            | Description                                                                                                                                                                                                            |
+| ---------------------------- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `buildType`                  | `"https://github.com/jul-sh/slsa-github-generator/container@v1"` | Identifies a the GitHub Actions build.                                                                                                                                                                                 |
+| `metadata.buildInvocationID` | `"[run_id]-[run_attempt]"`                                       | The GitHub Actions [`run_id`](https://docs.github.com/en/actions/learn-github-actions/contexts#github-context) does not update when a workflow is re-run. Run attempt is added to make the build invocation ID unique. |
 
 ### Provenance Example
 
@@ -263,9 +263,9 @@ generated as an [in-toto](https://in-toto.io/) statement with a SLSA predicate.
   ],
   "predicate": {
     "builder": {
-      "id": "https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v1.4.0"
+      "id": "https://github.com/jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v1.4.0"
     },
-    "buildType": "https://github.com/slsa-framework/slsa-github-generator/container@v1",
+    "buildType": "https://github.com/jul-sh/slsa-github-generator/container@v1",
     "invocation": {
       "configSource": {
         "uri": "git+https://github.com/ianlewis/actions-test@refs/heads/main.git",
@@ -373,7 +373,7 @@ This section explains how to generate non-forgeable SLSA provenance with existin
        # contents: read
        packages: write
      if: startsWith(github.ref, 'refs/tags/')
-     uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
+     uses: jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
      with:
        image: ${{ needs.build.outputs.image }}
        digest: ${{ needs.build.outputs.digest }}
@@ -438,7 +438,7 @@ This section explains how to generate non-forgeable SLSA provenance with existin
          # contents: read
          packages: write
        if: startsWith(github.ref, 'refs/tags/')
-       uses: slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
+       uses: jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@v1.10.0
        with:
          image: ${{ needs.build.outputs.image }}
          digest: ${{ needs.build.outputs.digest }}
@@ -464,7 +464,7 @@ Verification of provenance attestations can be done via several different tools.
 
 ### slsa-verifier
 
-`slsa-verifier` can be used to verify the provenance attestation for the image. Please see the [documentation](https://github.com/slsa-framework/slsa-verifier#containers) in the slsa-verifier repository.
+`slsa-verifier` can be used to verify the provenance attestation for the image. Please see the [documentation](https://github.com/jul-sh/slsa-verifier#containers) in the slsa-verifier repository.
 
 ### Cosign
 
@@ -482,7 +482,7 @@ predicate: {
   // unmodified. It verifies that the builder is the container
   // workflow.
   builder: {
-    id: =~"^https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9]+.[0-9]+.[0-9]+$"
+    id: =~"^https://github.com/jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9]+.[0-9]+.[0-9]+$"
   }
   invocation: {
     configSource: {
@@ -506,7 +506,7 @@ We can then use `cosign` to verify the attestation using the policy.
 COSIGN_EXPERIMENTAL=1 cosign verify-attestation \
   --type slsaprovenance \
   --certificate-oidc-issuer https://token.actions.githubusercontent.com \
-  --certificate-identity-regexp '^https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9]+.[0-9]+.[0-9]+$' \
+  --certificate-identity-regexp '^https://github.com/jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9]+.[0-9]+.[0-9]+$' \
   --policy policy.cue \
   ghcr.io/ianlewis/actions-test:v0.0.79
 ```
@@ -521,7 +521,7 @@ The following checks were performed on each of these signatures:
   - The cosign claims were validated
   - Existence of the claims in the transparency log was verified offline
   - The code-signing certificate was verified using trusted certificate authority certificates
-Certificate subject:  https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v1.4.0
+Certificate subject:  https://github.com/jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v1.4.0
 Certificate issuer URL:  https://token.actions.githubusercontent.com
 GitHub Workflow Trigger: push
 GitHub Workflow SHA: 3f938aae461d2a8bc7897ff975e77a876e3d9123
@@ -579,7 +579,7 @@ spec:
                 // unmodified. It verifies that the builder is the container
                 // workflow.
                 builder: {
-                  id: =~"^https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9]+.[0-9]+.[0-9]+$"
+                  id: =~"^https://github.com/jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9]+.[0-9]+.[0-9]+$"
                 }
                 invocation: {
                   configSource: {
@@ -653,7 +653,7 @@ spec:
             # identity.
             - entries:
                 - keyless:
-                    subject: "https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v1.4.0"
+                    subject: "https://github.com/jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v1.4.0"
                     issuer: "https://token.actions.githubusercontent.com"
           # This section declares some policy conditions acting on the provenance itself.
           attestations:
@@ -678,7 +678,7 @@ spec:
                     # expect and trust. The following condition can be used
                     # unmodified. It verifies that the builder is the container
                     # workflow.
-                    - key: "{{ regex_match('^https://github.com/slsa-framework/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9].[0-9].[0-9]$','{{ builder.id}}') }}"
+                    - key: "{{ regex_match('^https://github.com/jul-sh/slsa-github-generator/.github/workflows/generator_container_slsa3.yml@refs/tags/v[0-9].[0-9].[0-9]$','{{ builder.id}}') }}"
                       operator: Equals
                       value: true
 ```

@@ -1,8 +1,8 @@
 # SLSA GitHub Generator
 
-[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/slsa-framework/slsa-github-generator/badge)](https://api.securityscorecards.dev/projects/github.com/slsa-framework/slsa-github-generator)
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/jul-sh/slsa-github-generator/badge)](https://api.securityscorecards.dev/projects/github.com/jul-sh/slsa-github-generator)
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/6503/badge)](https://bestpractices.coreinfrastructure.org/projects/6503)
-[![Go Report Card](https://goreportcard.com/badge/github.com/slsa-framework/slsa-github-generator)](https://goreportcard.com/report/github.com/slsa-framework/slsa-github-generator)
+[![Go Report Card](https://goreportcard.com/badge/github.com/jul-sh/slsa-github-generator)](https://goreportcard.com/report/github.com/jul-sh/slsa-github-generator)
 [![Slack](https://img.shields.io/static/v1?label=openssf.slack.com&message=%23slsa-tooling&color=4A154B&logo=slack)](https://slack.openssf.org/)
 [![SLSA 3](https://slsa.dev/images/gh-badge-level3.svg)](https://slsa.dev)
 
@@ -110,17 +110,17 @@ Below is a non-exhaustive list of projects that use the builders in this reposit
 
 [![flask stars](https://img.shields.io/github/stars/pallets/flask?logo=github&label=pallets/flask)](https://github.com/pallets/flask) [![flatbuffers stars](https://img.shields.io/github/stars/google/flatbuffers?logo=github&label=google/flatbuffers)](https://github.com/google/flatbuffers) [![grpc-gateway stars](https://img.shields.io/github/stars/grpc-ecosystem/grpc-gateway?logo=github&label=grpc-ecosystem/grpc-gateway)](https://github.com/grpc-ecosystem/grpc-gateway) [![argo-cd stars](https://img.shields.io/github/stars/argoproj/argo-cd?logo=github&label=argoproj/argo-cd)](https://github.com/argoproj/argo-cd) [![click stars](https://img.shields.io/github/stars/pallets/click?logo=github&label=pallets/click)](https://github.com/pallets/click) [![SOPS stars](https://img.shields.io/github/stars/getsops/sops?logo=github&label=getsops/sops)](https://github.com/getsops/sops) [![jib stars](https://img.shields.io/github/stars/GoogleContainerTools/jib?logo=github&label=GoogleContainerTools/jib)](https://github.com/GoogleContainerTools/jib) [![jinja stars](https://img.shields.io/github/stars/pallets/jinja?logo=github&label=pallets/jinja)](https://github.com/pallets/jinja) [![docker-bench-security stars](https://img.shields.io/github/stars/docker/docker-bench-security?logo=github&label=docker/docker-bench-security)](https://github.com/docker/docker-bench-security) [![sentencepiece stars](https://img.shields.io/github/stars/google/sentencepiece?logo=github&label=google/sentencepiece)](https://github.com/google/sentencepiece) [![werkzeug stars](https://img.shields.io/github/stars/pallets/werkzeug?logo=github&label=pallets/werkzeug)](https://github.com/pallets/werkzeug) [![ko stars](https://img.shields.io/github/stars/ko-build/ko?logo=github&label=ko-build/ko)](https://github.com/ko-build/ko) [![micronaut-core stars](https://img.shields.io/github/stars/micronaut-projects/micronaut-core?logo=github&label=micronaut-projects/micronaut-core)](https://github.com/micronaut-projects/micronaut-core) [![kubeedge stars](https://img.shields.io/github/stars/kubeedge/kubeedge?logo=github&label=kubeedge/kubeedge)](https://github.com/kubeedge/kubeedge) [![osv-scanner stars](https://img.shields.io/github/stars/google/osv-scanner?logo=github&label=google/osv-scanner)](https://github.com/google/osv-scanner) [![flux2 stars](https://img.shields.io/github/stars/fluxcd/flux2?logo=github&label=fluxcd/flux2)](https://github.com/fluxcd/flux2) [![kyverno stars](https://img.shields.io/github/stars/kyverno/kyverno?logo=github&label=kyverno/kyverno)](https://github.com/kyverno/kyverno) [![flask-sqlalchemy stars](https://img.shields.io/github/stars/pallets-eco/flask-sqlalchemy?logo=github&label=pallets-eco/flask-sqlalchemy)](https://github.com/pallets-eco/flask-sqlalchemy) [![scorecard stars](https://img.shields.io/github/stars/ossf/scorecard?logo=github&label=ossf/scorecard)](https://github.com/ossf/scorecard) [![urllib3 stars](https://img.shields.io/github/stars/urllib3/urllib3?logo=github&label=urllib3/urllib3)](https://github.com/urllib3/urllib3) [![pdns stars](https://img.shields.io/github/stars/PowerDNS/pdns?logo=github&label=PowerDNS/pdns)](https://github.com/PowerDNS/pdns) [![powertools-lambda-python stars](https://img.shields.io/github/stars/aws-powertools/powertools-lambda-python?logo=github&label=aws-powertools/powertools-lambda-python)](https://github.com/aws-powertools/powertools-lambda-python) [![hishtory stars](https://img.shields.io/github/stars/ddworken/hishtory?logo=github&label=ddworken/hishtory)](https://github.com/ddworken/hishtory) [![PrivateBin stars](https://img.shields.io/github/stars/PrivateBin/PrivateBin?logo=github&label=PrivateBin/PrivateBin)](https://github.com/PrivateBin/PrivateBin)
 
-[Edit this file](https://github.com/slsa-framework/slsa-github-generator/edit/main/README.md) to add your repository!
+[Edit this file](https://github.com/jul-sh/slsa-github-generator/edit/main/README.md) to add your repository!
 
 #### Builder Creation
 
 Several builders have been built using the ["Build Your Own Builder" (BYOB) framework](#build-your-own-builder):
 
-1. [nodejs builder](https://github.com/slsa-framework/slsa-github-generator/tree/main/internal/builders/nodejs#readme), by [@ianlewis](https://github.com/ianlewis)
+1. [nodejs builder](https://github.com/jul-sh/slsa-github-generator/tree/main/internal/builders/nodejs#readme), by [@ianlewis](https://github.com/ianlewis)
 2. [JReleaser builder](https://github.com/jreleaser/release-action/tree/java#slsa-builder), by [@aalmiray](https://github.com/aalmiray)
-3. [Maven builder](https://github.com/slsa-framework/slsa-github-generator/blob/main/internal/builders/maven/README.md), by [@AdamKorcz](https://github.com/AdamKorcz)
-4. [Gradle builder](https://github.com/slsa-framework/slsa-github-generator/tree/main/internal/builders/gradle/README.md), by [@AdamKorcz](https://github.com/AdamKorcz)
-5. **Coming soon!** [Bazel builder](https://github.com/slsa-framework/slsa-github-generator/tree/main/internal/builders/bazel/README.md), by [@enteraga6](https://github.com/enteraga6)
+3. [Maven builder](https://github.com/jul-sh/slsa-github-generator/blob/main/internal/builders/maven/README.md), by [@AdamKorcz](https://github.com/AdamKorcz)
+4. [Gradle builder](https://github.com/jul-sh/slsa-github-generator/tree/main/internal/builders/gradle/README.md), by [@AdamKorcz](https://github.com/AdamKorcz)
+5. **Coming soon!** [Bazel builder](https://github.com/jul-sh/slsa-github-generator/tree/main/internal/builders/bazel/README.md), by [@enteraga6](https://github.com/enteraga6)
 
 ## Generate provenance
 
@@ -138,7 +138,7 @@ by tag in order for the `slsa-verifier` to be able to verify the ref of the trus
 reusable workflow. It also needs to be referred as `@vX.Y.Z`, because the build will fail if you reference it via a shorter tag like `@vX.Y` or `@vX`.
 
 This is contrary to the [GitHub best practice for third-party actions](https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions#using-third-party-actions) which recommends referencing by digest, but intentional due to limits in GitHub Actions.
-The desire to be able to verify reusable workflows pinned by hash, and the reasons for the current status, are tracked as [Issue #12](https://github.com/slsa-framework/slsa-verifier/issues/12) in the slsa-verifier project.
+The desire to be able to verify reusable workflows pinned by hash, and the reasons for the current status, are tracked as [Issue #12](https://github.com/jul-sh/slsa-verifier/issues/12) in the slsa-verifier project.
 
 For guidance on how to configure renovate see [RENOVATE.md](RENOVATE.md).
 
@@ -151,20 +151,20 @@ requirements for [SLSA Build level 3 and above](https://slsa.dev/spec/v1.0/level
 
 This repository hosts the following builders:
 
-| Ecosystem |      Builder      |  Description | Status |
-|:-----------|:-----------------|:------------|:--------|
-| [Go](https://go.dev/) projects | [Go Builder](internal/builders/go/README.md) | Builds and generates provenance for Go projects | [available since v1.0.0](https://github.com/slsa-framework/slsa-github-generator/milestone/1) |
-| [Node.js](https://nodejs.org) projects | [Node.js Builder](internal/builders/nodejs/README.md)   |  Builds and generates provenance for npm packages | [Beta since v1.6.0](https://github.com/slsa-framework/slsa-github-generator/milestone/8). [Expected GA release Sept 2023](https://github.com/slsa-framework/slsa-github-generator/milestone/17)
-| [Maven](https://maven.apache.org/) projects | [Maven builder](internal/builders/maven/README.md) | Build Maven packages and generates provenance. Can be uploaded to [Maven central](https://search.maven.org) | [Beta since v1.9.0](https://github.com/slsa-framework/slsa-github-generator/milestone/14) |
-| [Gradle](https://gradle.org/) projects | [Gradle builder](internal/builders/gradle/README.md) | Build Gradle projects and generates provenance. Can be uploaded to [Maven central](https://search.maven.org) | [Beta since v1.9.0](https://github.com/slsa-framework/slsa-github-generator/milestone/15) |
-| [Bazel](https://bazel.build/) projects | [Bazel builder](internal/builders/bazel/README.md) | Builds [Bazel](https://bazel.build/) projects and generates provenance | [WIP](https://github.com/slsa-framework/slsa-github-generator/milestone/16) |
-| [docker](https://www.docker.com/) images | Container Builder | Builds docker containers and generates provenance. The generated provenance is compatible with [cosign](https://github.com/sigstore/cosign)'s attestation format | [WIP](https://github.com/slsa-framework/slsa-github-generator/milestone/5)  |
-| Any | [Container-based Builder](internal/builders/docker/README.md) | Builds projects whose build pipeline is defined with a Dockerfile | [Beta since v1.7.0](https://github.com/slsa-framework/slsa-github-generator/milestone/16) |
+| Ecosystem                                   | Builder                                                       | Description                                                                                                                                                      | Status                                                                                                                                                                          |
+| :------------------------------------------ | :------------------------------------------------------------ | :--------------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Go](https://go.dev/) projects              | [Go Builder](internal/builders/go/README.md)                  | Builds and generates provenance for Go projects                                                                                                                  | [available since v1.0.0](https://github.com/jul-sh/slsa-github-generator/milestone/1)                                                                                           |
+| [Node.js](https://nodejs.org) projects      | [Node.js Builder](internal/builders/nodejs/README.md)         | Builds and generates provenance for npm packages                                                                                                                 | [Beta since v1.6.0](https://github.com/jul-sh/slsa-github-generator/milestone/8). [Expected GA release Sept 2023](https://github.com/jul-sh/slsa-github-generator/milestone/17) |
+| [Maven](https://maven.apache.org/) projects | [Maven builder](internal/builders/maven/README.md)            | Build Maven packages and generates provenance. Can be uploaded to [Maven central](https://search.maven.org)                                                      | [Beta since v1.9.0](https://github.com/jul-sh/slsa-github-generator/milestone/14)                                                                                               |
+| [Gradle](https://gradle.org/) projects      | [Gradle builder](internal/builders/gradle/README.md)          | Build Gradle projects and generates provenance. Can be uploaded to [Maven central](https://search.maven.org)                                                     | [Beta since v1.9.0](https://github.com/jul-sh/slsa-github-generator/milestone/15)                                                                                               |
+| [Bazel](https://bazel.build/) projects      | [Bazel builder](internal/builders/bazel/README.md)            | Builds [Bazel](https://bazel.build/) projects and generates provenance                                                                                           | [WIP](https://github.com/jul-sh/slsa-github-generator/milestone/16)                                                                                                             |
+| [docker](https://www.docker.com/) images    | Container Builder                                             | Builds docker containers and generates provenance. The generated provenance is compatible with [cosign](https://github.com/sigstore/cosign)'s attestation format | [WIP](https://github.com/jul-sh/slsa-github-generator/milestone/5)                                                                                                              |
+| Any                                         | [Container-based Builder](internal/builders/docker/README.md) | Builds projects whose build pipeline is defined with a Dockerfile                                                                                                | [Beta since v1.7.0](https://github.com/jul-sh/slsa-github-generator/milestone/16)                                                                                               |
 
 There are other available builders using this repository's [BYOB framework](#build-your-own-builder) and not hosted in this repository:
 
-| Ecosystem |      Builder      |  Description | Status |
-|:-----------|:-----------------|:------------|:--------|
+| Ecosystem                                    | Builder                                                                                 | Description                                                               | Status                                                                            |
+| :------------------------------------------- | :-------------------------------------------------------------------------------------- | :------------------------------------------------------------------------ | :-------------------------------------------------------------------------------- |
 | [JReleaser](https://jreleaser.org/) projects | [JReleaser builder](https://github.com/jreleaser/release-action/tree/java#slsa-builder) | Builds and generates provenance using [JReleaser](https://jreleaser.org/) | [since v1.0.0-java](https://github.com/jreleaser/release-action/tree/v1.0.0-java) |
 
 If none of these options fit your needs, use a [generator](#generators) as described below:
@@ -180,26 +180,26 @@ Generators create an attestation to a software artifact coming from your reposit
 
 This repository hosts the following generators:
 
-| Artifact type                       | Generator                                                    | Description                                                                                                                                              | Status                                                                                        |
-| :---------------------------------- | :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------- |
-| file (binary, package tarball etc.) | [Generic generator](internal/builders/generic/README.md)     | Generates provenance for arbitrary file-based artifacts, for any ecosystem and programming language                                                      | [available since v1.2.0](https://github.com/slsa-framework/slsa-github-generator/milestone/2) |
-| container                           | [Container generator](internal/builders/container/README.md) | Generate provenance for container images. The generated provenance is compatible with [cosign](https://github.com/sigstore/cosign)'s attestation format. | [available since v1.4.0](https://github.com/slsa-framework/slsa-github-generator/milestone/3) |
+| Artifact type                       | Generator                                                    | Description                                                                                                                                              | Status                                                                                |
+| :---------------------------------- | :----------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------ |
+| file (binary, package tarball etc.) | [Generic generator](internal/builders/generic/README.md)     | Generates provenance for arbitrary file-based artifacts, for any ecosystem and programming language                                                      | [available since v1.2.0](https://github.com/jul-sh/slsa-github-generator/milestone/2) |
+| container                           | [Container generator](internal/builders/container/README.md) | Generate provenance for container images. The generated provenance is compatible with [cosign](https://github.com/sigstore/cosign)'s attestation format. | [available since v1.4.0](https://github.com/jul-sh/slsa-github-generator/milestone/3) |
 
 ## Verify provenance
 
-To verify provenance created by any of the builders in this repository, use the [github.com/slsa-framework/slsa-verifier](https://github.com/slsa-framework/slsa-verifier) project.
+To verify provenance created by any of the builders in this repository, use the [github.com/jul-sh/slsa-verifier](https://github.com/jul-sh/slsa-verifier) project.
 
 ### Installation
 
-To install the verifier, see [slsa-framework/slsa-verifier#installation](https://github.com/slsa-framework/slsa-verifier#installation).
+To install the verifier, see [jul-sh/slsa-verifier#installation](https://github.com/jul-sh/slsa-verifier#installation).
 
 ### Inputs
 
-The inputs of the verifier are described in [slsa-framework/slsa-verifier#available-options](https://github.com/slsa-framework/slsa-verifier#available-options).
+The inputs of the verifier are described in [jul-sh/slsa-verifier#available-options](https://github.com/jul-sh/slsa-verifier#available-options).
 
 ### Command line examples
 
-A command line example is provided in [slsa-framework/slsa-verifier#example](https://github.com/slsa-framework/slsa-verifier#example).
+A command line example is provided in [jul-sh/slsa-verifier#example](https://github.com/jul-sh/slsa-verifier#example).
 
 ## Known Issues
 
@@ -213,7 +213,7 @@ This will occur when generating provenance with all builders and generators.
 error updating to TUF remote mirror: invalid
 ```
 
-This issue is tracked by [issue #3350](https://github.com/slsa-framework/slsa-github-generator/issues/3350). You _must_ update to v1.10.0 to fix this issue.
+This issue is tracked by [issue #3350](https://github.com/jul-sh/slsa-github-generator/issues/3350). You _must_ update to v1.10.0 to fix this issue.
 
 ## Build Your Own Builder
 
@@ -224,7 +224,7 @@ To verify the provenance, your users can use the [slsa-verifier](#verification-o
 ## Project Roadmap
 
 The project roadmap is tracked via milestones. You can track progress and open
-issues via the [milestones page](https://github.com/slsa-framework/slsa-github-generator/milestones?direction=asc&sort=due_date&state=open).
+issues via the [milestones page](https://github.com/jul-sh/slsa-github-generator/milestones?direction=asc&sort=due_date&state=open).
 Each milestone includes a description of what is being worked on and a rough
 timeline for completion.
 

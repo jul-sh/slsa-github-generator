@@ -43,7 +43,7 @@ export function createSourceURI(rawTokenObj: rawTokenInterface): string {
   // TRW may overwrite the commit sha to build.
   // For example, users of JReleaser may push a commit
   // before building. See discussion at
-  // https://github.com/slsa-framework/slsa-github-generator/issues/2043.
+  // https://github.com/jul-sh/slsa-github-generator/issues/2043.
   // If the TRW passed in a sha1, we don't know the ref
   // so we never report it.
   if (rawTokenObj.source.checkout.sha1) {
@@ -87,7 +87,7 @@ export function getSourceSha1(rawTokenObj: rawTokenInterface): string {
   // TRW may overwrite the commit sha to build.
   // For example, users of JReleaser may push a commit
   // before building. See discussion at
-  // https://github.com/slsa-framework/slsa-github-generator/issues/2043.
+  // https://github.com/jul-sh/slsa-github-generator/issues/2043.
   const sha1 = rawTokenObj.source.checkout.sha1 || rawTokenObj.github.sha;
   validateSha1(sha1);
   return sha1;
@@ -119,7 +119,7 @@ export function asMap<T>(inputs: Map<string, T>): Map<string, T> {
 }
 
 export function parseCertificate(
-  bundle: Bundle,
+  bundle: Bundle
 ): [string, string, string, string, string] {
   if (bundle === undefined) {
     throw new Error(`undefined bundle.`);
@@ -129,20 +129,20 @@ export function parseCertificate(
   }
   if (bundle.verificationMaterial.x509CertificateChain === undefined) {
     throw new Error(
-      `undefined bundle.verificationMaterial.x509CertificateChain.`,
+      `undefined bundle.verificationMaterial.x509CertificateChain.`
     );
   }
   if (
     bundle.verificationMaterial.x509CertificateChain.certificates.length === 0
   ) {
     throw new Error(
-      `bundle.verificationMaterial.x509CertificateChaincertificates is empty.`,
+      `bundle.verificationMaterial.x509CertificateChaincertificates is empty.`
     );
   }
   // NOTE: the first certificate is the client certificate.
   const clientCertDer = Buffer.from(
     bundle.verificationMaterial.x509CertificateChain.certificates[0].rawBytes,
-    "base64",
+    "base64"
   );
   const clientCertPath = "client.cert";
 
@@ -184,7 +184,7 @@ export function parseCertificate(
   const shaOid = "1.3.6.1.4.1.57264.1.10";
   child_process
     .execSync(
-      `openssl x509 -in ${clientCertPath} -noout -text -out ${textCertPath}`,
+      `openssl x509 -in ${clientCertPath} -noout -text -out ${textCertPath}`
     )
     .toString();
   const resultSha = child_process
@@ -206,7 +206,7 @@ export function parseCertificate(
 
   const toolPath = removeSuffix(
     removePrefix(toolURI, `https://github.com/${toolRepository}/`),
-    `@${toolRef}`,
+    `@${toolRef}`
   );
   core.debug(`tool-path: ${toolPath}`);
   return [toolURI, toolRepository, toolRef, toolSha, toolPath];
@@ -255,7 +255,7 @@ export async function fetchToolWorkflow(
   ghToken: string,
   repoName: string,
   hash: string,
-  workflowPath: string,
+  workflowPath: string
 ): Promise<string> {
   const octokit = github.getOctokit(ghToken);
   const [o, r] = repoName.split("/", 2);

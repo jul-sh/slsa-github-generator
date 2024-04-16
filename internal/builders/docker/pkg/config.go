@@ -22,8 +22,8 @@ import (
 	"net/url"
 	"strings"
 
+	"github.com/jul-sh/slsa-github-generator/internal/utils"
 	toml "github.com/pelletier/go-toml"
-	"github.com/slsa-framework/slsa-github-generator/internal/utils"
 )
 
 // BuildConfig is a collection of parameters to use for building the artifact.

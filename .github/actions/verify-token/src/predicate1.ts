@@ -25,13 +25,13 @@ import {
 import { SLSAPredicate } from "./slsatypes1";
 
 const DELEGATOR_BUILD_TYPE_V0 =
-  "https://github.com/slsa-framework/slsa-github-generator/delegator-generic@v0";
+  "https://github.com/jul-sh/slsa-github-generator/delegator-generic@v0";
 
 export async function createPredicate(
   rawTokenObj: rawTokenInterface,
   toolURI: string,
   token: string,
-  isGenerator: boolean,
+  isGenerator: boolean
 ): Promise<SLSAPredicate> {
   // Trigger information.
   const triggerPath: string = getTriggerPath(rawTokenObj);
@@ -52,7 +52,7 @@ export async function createPredicate(
     run_id: Number(rawTokenObj.github.run_id),
   });
 
-  // NOTE: see example at https://github.com/slsa-framework/slsa/blob/main/docs/github-actions-workflow/examples/v0.1/example.json.
+  // NOTE: see example at https://github.com/jul-sh/slsa/blob/main/docs/github-actions-workflow/examples/v0.1/example.json.
   const predicate: SLSAPredicate = {
     buildDefinition: {
       buildType: DELEGATOR_BUILD_TYPE_V0,
@@ -90,7 +90,7 @@ export async function createPredicate(
       ],
     },
     runDetails: {
-      // TODO(https://github.com/slsa-framework/slsa-github-generator/issues/1504):
+      // TODO(https://github.com/jul-sh/slsa-github-generator/issues/1504):
       // Record raw token inputs (tool action inputs).
       builder: {
         id: toolURI,
@@ -130,11 +130,11 @@ export async function createPredicate(
   }
 
   // Put GitHub event payload into internalParameters.
-  // TODO(github.com/slsa-framework/slsa-github-generator/issues/1575): Redact sensitive information.
+  // TODO(github.com/jul-sh/slsa-github-generator/issues/1575): Redact sensitive information.
   // NOTE: Contents of event_path have been pre-validated.
   predicate.buildDefinition.internalParameters.GITHUB_EVENT_PAYLOAD =
     JSON.parse(
-      tscommon.safeReadFileSync(process.env.GITHUB_EVENT_PATH || "").toString(),
+      tscommon.safeReadFileSync(process.env.GITHUB_EVENT_PATH || "").toString()
     );
 
   return predicate;

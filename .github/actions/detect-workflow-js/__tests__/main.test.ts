@@ -52,9 +52,8 @@ describe("detectWorkflowFromOIDC", () => {
     core.getIDToken.mockClear();
     core.getIDToken.mockReturnValueOnce(jwt);
 
-    const [repo, ref, workflow] = await detect.detectWorkflowFromOIDC(
-      "some/audience",
-    );
+    const [repo, ref, workflow] =
+      await detect.detectWorkflowFromOIDC("some/audience");
     expect(repo).toBe("octo-org/octo-automation");
     expect(ref).toBe("refs/heads/main");
     expect(workflow).toBe(".github/workflows/oidc.yml");
@@ -72,9 +71,8 @@ describe("detectWorkflowFromOIDC", () => {
     core.getIDToken.mockClear();
     core.getIDToken.mockReturnValueOnce(jwt);
 
-    const [repo, ref, workflow] = await detect.detectWorkflowFromOIDC(
-      "some/audience",
-    );
+    const [repo, ref, workflow] =
+      await detect.detectWorkflowFromOIDC("some/audience");
     expect(repo).toBe("vitejs/vite");
     expect(ref).toBe("refs/tags/create-vite@5.0.0-beta.0");
     expect(workflow).toBe(".github/workflows/publish.yml");
@@ -93,7 +91,7 @@ describe("detectWorkflowFromOIDC", () => {
     core.getIDToken.mockReturnValueOnce(jwt);
 
     await expect(
-      detect.detectWorkflowFromOIDC("other/audience"),
+      detect.detectWorkflowFromOIDC("other/audience")
     ).rejects.toThrow();
   });
   it("missing job_workflow_ref", async () => {
@@ -107,7 +105,7 @@ describe("detectWorkflowFromOIDC", () => {
     core.getIDToken.mockReturnValueOnce(jwt);
 
     await expect(
-      detect.detectWorkflowFromOIDC("some/audience"),
+      detect.detectWorkflowFromOIDC("some/audience")
     ).rejects.toThrow();
   });
 });
@@ -140,11 +138,11 @@ describe("detectWorkflowFromContext", () => {
 
   it("no workflow run", async () => {
     octokit.rest.actions.getWorkflowRun.mockReturnValue(
-      Promise.resolve({ data: { conclusion: "failure" } }),
+      Promise.resolve({ data: { conclusion: "failure" } })
     );
 
     expect(
-      detect.detectWorkflowFromContext("unused", "unused"),
+      detect.detectWorkflowFromContext("unused", "unused")
     ).rejects.toThrow();
   });
 
@@ -159,19 +157,19 @@ describe("detectWorkflowFromContext", () => {
               ref: "refs/pull/3669/merge",
             },
             {
-              path: "slsa-framework/slsa-github-generator/.github/workflows/builder_docker-based_slsa3.yml@v1.5.0",
+              path: "jul-sh/slsa-github-generator/.github/workflows/builder_docker-based_slsa3.yml@v1.5.0",
               sha: "7f4fdb871876c23e455853d694197440c5a91506",
               ref: "refs/tags/v1.5.0",
             },
           ],
         },
-      }),
+      })
     );
     const [repo, ref, workflow] = await detect.detectWorkflowFromContext(
       "unused",
-      "unused",
+      "unused"
     );
-    expect(repo).toBe("slsa-framework/slsa-github-generator");
+    expect(repo).toBe("jul-sh/slsa-github-generator");
     expect(ref).toBe("refs/tags/v1.5.0");
     expect(workflow).toBe(".github/workflows/builder_docker-based_slsa3.yml");
   });
@@ -182,24 +180,24 @@ describe("detectWorkflowFromContext", () => {
         data: {
           referenced_workflows: [
             {
-              path: "slsa-framework/slsa-github-generator/.github/workflows/generic_generator_slsa3.yml@v1.5.0",
+              path: "jul-sh/slsa-github-generator/.github/workflows/generic_generator_slsa3.yml@v1.5.0",
               sha: "7f4fdb871876c23e455853d694197440c5a91506",
               ref: "refs/tags/v1.5.0",
             },
             {
-              path: "slsa-framework/slsa-github-generator/.github/workflows/builder_docker-based_slsa3.yml@v1.5.0",
+              path: "jul-sh/slsa-github-generator/.github/workflows/builder_docker-based_slsa3.yml@v1.5.0",
               sha: "7f4fdb871876c23e455853d694197440c5a91506",
               ref: "refs/tags/v1.5.0",
             },
           ],
         },
-      }),
+      })
     );
     const [repo, ref, workflow] = await detect.detectWorkflowFromContext(
       "unused",
-      "unused",
+      "unused"
     );
-    expect(repo).toBe("slsa-framework/slsa-github-generator");
+    expect(repo).toBe("jul-sh/slsa-github-generator");
     expect(ref).toBe("refs/tags/v1.5.0");
     expect(workflow).toBe(".github/workflows/builder_docker-based_slsa3.yml");
   });
@@ -210,7 +208,7 @@ describe("detectWorkflowFromContext", () => {
         data: {
           referenced_workflows: [
             {
-              path: "slsa-framework/slsa-github-generator/.github/workflows/generic_generator_slsa3.yml@v1.5.0",
+              path: "jul-sh/slsa-github-generator/.github/workflows/generic_generator_slsa3.yml@v1.5.0",
               sha: "7f4fdb871876c23e455853d694197440c5a91506",
               ref: "refs/tags/v1.5.0",
             },
@@ -221,10 +219,10 @@ describe("detectWorkflowFromContext", () => {
             },
           ],
         },
-      }),
+      })
     );
     expect(
-      detect.detectWorkflowFromContext("unused", "unused"),
+      detect.detectWorkflowFromContext("unused", "unused")
     ).rejects.toThrow();
   });
 
@@ -237,30 +235,30 @@ describe("detectWorkflowFromContext", () => {
           path: ".github/workflows/pre-submit.e2e.docker-based.default.yml",
           referenced_workflows: [
             {
-              path: "slsa-framework/slsa-github-generator/.github/workflows/builder_docker-based_slsa3.yml@9929152897cce5842f58221572911e18dd937808",
+              path: "jul-sh/slsa-github-generator/.github/workflows/builder_docker-based_slsa3.yml@9929152897cce5842f58221572911e18dd937808",
               sha: "9929152897cce5842f58221572911e18dd937808",
               ref: "refs/pull/3669/merge",
             },
           ],
           repository: {
             name: "slsa-github-generator",
-            full_name: "slsa-framework/slsa-github-generator",
+            full_name: "jul-sh/slsa-github-generator",
           },
           head_repository: {
             name: "slsa-github-generator",
             full_name: "asraa/slsa-github-generator",
           },
         },
-      }),
+      })
     );
     const [repo, ref, workflow] = await detect.detectWorkflowFromContext(
       "unused",
-      "unused",
+      "unused"
     );
     expect(repo).toBe("asraa/slsa-github-generator");
     expect(ref).toBe("088d04f305bd32ad4594d82e8c1571507acf03d5");
     expect(workflow).toBe(
-      ".github/workflows/pre-submit.e2e.docker-based.default.yml",
+      ".github/workflows/pre-submit.e2e.docker-based.default.yml"
     );
   });
 });

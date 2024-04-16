@@ -27,9 +27,9 @@ import (
 	intoto "github.com/in-toto/in-toto-golang/in_toto"
 	slsacommon "github.com/in-toto/in-toto-golang/in_toto/slsa_provenance/common"
 
-	"github.com/slsa-framework/slsa-github-generator/internal/testutil"
-	"github.com/slsa-framework/slsa-github-generator/internal/utils"
-	"github.com/slsa-framework/slsa-github-generator/slsa"
+	"github.com/jul-sh/slsa-github-generator/internal/testutil"
+	"github.com/jul-sh/slsa-github-generator/internal/utils"
+	"github.com/jul-sh/slsa-github-generator/slsa"
 )
 
 const (

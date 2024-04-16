@@ -21,7 +21,7 @@
 # export GITHUB_RUN_ATTEMPT=1
 # export GITHUB_REF=refs/heads/branch-name or refs/tags/tag-name
 # export GITHUB_REF_TYPE=branch or tag
-# export GITHUB_REPOSITORY=slsa-framework/example-package
+# export GITHUB_REPOSITORY=jul-sh/example-package
 # export GITHUB_REF_NAME=v1.2.3
 # export GITHUB_WORKFLOW=go schedule main SLSA3 config-noldflags
 # export THIS_FILE=e2e.go.workflow_dispatch.main.config-noldflags.slsa3.yml
@@ -46,7 +46,7 @@ e2e_verify_predicate_invocation_environment "$ATTESTATION" "arch" "X64"
 
 # Verify the subject and build type
 e2e_verify_predicate_subject_name "$ATTESTATION" "$BINARY"
-e2e_verify_predicate_buildType "$ATTESTATION" "https://github.com/slsa-framework/slsa-github-generator/go@v1"
+e2e_verify_predicate_buildType "$ATTESTATION" "https://github.com/jul-sh/slsa-github-generator/go@v1"
 
 # Verify the buildConfig
 

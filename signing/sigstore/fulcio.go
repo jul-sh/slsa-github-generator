@@ -20,13 +20,13 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/jul-sh/slsa-github-generator/signing"
+	"github.com/jul-sh/slsa-github-generator/signing/envelope"
 	"github.com/sigstore/cosign/v2/cmd/cosign/cli/fulcio"
 	"github.com/sigstore/cosign/v2/cmd/cosign/cli/options"
 	"github.com/sigstore/cosign/v2/cmd/cosign/cli/sign"
 	"github.com/sigstore/cosign/v2/pkg/providers"
 	"github.com/sigstore/sigstore/pkg/signature/dsse"
-	"github.com/slsa-framework/slsa-github-generator/signing"
-	"github.com/slsa-framework/slsa-github-generator/signing/envelope"
 
 	intoto "github.com/in-toto/in-toto-golang/in_toto"
 )

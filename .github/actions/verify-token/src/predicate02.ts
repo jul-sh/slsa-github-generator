@@ -24,12 +24,12 @@ import {
 import { SLSAPredicate } from "./slsatypes02";
 
 const DELEGATOR_BUILD_TYPE_V0 =
-  "https://github.com/slsa-framework/slsa-github-generator/delegator-generic@v0";
+  "https://github.com/jul-sh/slsa-github-generator/delegator-generic@v0";
 
 export async function createPredicate(
   rawTokenObj: rawTokenInterface,
   toolURI: string,
-  token: string,
+  token: string
 ): Promise<SLSAPredicate> {
   // Trigger information.
   const triggerPath: string = getTriggerPath(rawTokenObj);

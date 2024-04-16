@@ -19,8 +19,8 @@ import (
 
 	// TODO: Allow use of other OIDC providers?
 	// Enable the github OIDC auth provider.
+	"github.com/jul-sh/slsa-github-generator/signing/sigstore"
 	_ "github.com/sigstore/cosign/v2/pkg/providers/github"
-	"github.com/slsa-framework/slsa-github-generator/signing/sigstore"
 
 	"github.com/spf13/cobra"
 )

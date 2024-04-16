@@ -1,4 +1,4 @@
-module slsa-framework/example-package
+module jul-sh/example-package
 
 go 1.21
 

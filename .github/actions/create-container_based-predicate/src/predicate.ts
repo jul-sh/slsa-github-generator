@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// TODO(https://github.com/slsa-framework/slsa-github-generator/issues/1470):
+// TODO(https://github.com/jul-sh/slsa-github-generator/issues/1470):
 // Share this code with BYO predicate definitions.
 
 import type { Endpoints } from "@octokit/types";
@@ -93,7 +93,7 @@ export function generatePredicate(
   bd: BuildDefinition,
   binaryRef: ResourceDescriptor,
   jobWorkflowRef: string,
-  currentRun: ApiWorkflowRun,
+  currentRun: ApiWorkflowRun
 ): SLSAv1Predicate {
   // Add the builder binary to the resolved dependencies.
   if (!bd.resolvedDependencies) {

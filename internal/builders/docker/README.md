@@ -16,7 +16,7 @@ build as well as generates the provenance. This workflow uses a distinct build
 type that provides the full details on the build process.
 
 **NOTE**: This workflow is currently in
-[beta testing](https://github.com/slsa-framework/slsa-github-generator/milestone/4).
+[beta testing](https://github.com/jul-sh/slsa-github-generator/milestone/4).
 
 ---
 
@@ -103,7 +103,7 @@ If you do not set this flag then private repositories will generate an error in
 order to prevent leaking repository name information.
 
 Support for private transparency log instances that would not leak repository
-name information is tracked on [issue #372](https://github.com/slsa-framework/slsa-github-generator/issues/372).
+name information is tracked on [issue #372](https://github.com/jul-sh/slsa-github-generator/issues/372).
 
 ### Registry Authentication
 
@@ -132,7 +132,7 @@ container-based build and produce an _unsigned_ DSSE attestation for the
 purposes of testing.
 
 If you have an issue with any other triggers please submit a [new
-issue](https://github.com/slsa-framework/slsa-github-generator/issues/new/choose).
+issue](https://github.com/jul-sh/slsa-github-generator/issues/new/choose).
 
 ### Configuration File
 
@@ -154,7 +154,7 @@ basenames of the matching files.
 ### Workflow Inputs
 
 The [container-based
-workflow](https://github.com/slsa-framework/slsa-github-generator/blob/main/.github/workflows/builder_container-based_slsa3.yml)
+workflow](https://github.com/jul-sh/slsa-github-generator/blob/main/.github/workflows/builder_container-based_slsa3.yml)
 accepts the following inputs:
 
 Inputs:
@@ -204,7 +204,7 @@ jobs:
       contents: write # To upload assets to release.
       actions: read # To read the workflow path.
     needs: args
-    uses: slsa-framework/slsa-github-generator/.github/workflows/builder_container-based_slsa3.yml@v1.10.0
+    uses: jul-sh/slsa-github-generator/.github/workflows/builder_container-based_slsa3.yml@v1.10.0
     with:
       builder-image: "bash"
       builder-digest: "sha256:9e2ba52487d945504d250de186cb4fe2e3ba023ed2921dd6ac8b97ed43e76af9"
@@ -214,7 +214,7 @@ jobs:
 ### Workflow Outputs
 
 The [container-based
-workflow](https://github.com/slsa-framework/slsa-github-generator/blob/main/.github/workflows/builder_container-based_slsa3.yml) produces the following outputs:
+workflow](https://github.com/jul-sh/slsa-github-generator/blob/main/.github/workflows/builder_container-based_slsa3.yml) produces the following outputs:
 
 | Name                         | Description                                                                                                                                                                                                                                             |
 | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -225,16 +225,16 @@ workflow](https://github.com/slsa-framework/slsa-github-generator/blob/main/.git
 
 The `buildDefinition` contains the following fields:
 
-| Name                                          | Value                                                 | Description                                                                                                                                                                      |
-| --------------------------------------------- | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `buildType`                                   | `"https://slsa.dev/container-based-build/v0.1?draft"` | Identifies the container-based build type.                                                                                                                                       |
-| `externalParameters.source`                   | `slsa.ResourceDescriptor`                              | An artifact reference specifying the location of the source repository.                                                                                                          |
-| `externalParameters.builderImage`             | `slsa.ResourceDescriptor`                              | An artifact reference specifying the container base image used to build the artifacts.                                                                                           |
-| `externalParameters.configPath`               | `".github/configs-docker/config.toml"`                | The location of the configuration file, relative to the root of the source repository.                                                                                           |
-| `externalParameters.buildConfig`              | JSON object                                           | An object describing the build configuration.                                                                                                                                    |
-| `externalParameters.buildConfig.ArtifactPath` | `"dist/**"`                                           | The path describing the output artifacts to attest to and upload.                                                                                                                |
-| `externalParameters.buildConfig.Command`      | `"["npm", "run", "all"]"`                             | The build command invoked in the container image to produce the output artifacts.                                                                                                |
-| `externalParameters.resolvedDependencies`     | `slsa.ResourceDescriptor`                              | Contains the artifact reference specifying the resolved source and the binary used by the reusable workflow to build the artifact and generate the build definition. See the [CLI tool](#command-line-tool) below. |
+| Name                                          | Value                                                 | Description                                                                                                                                                                                                        |
+| --------------------------------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `buildType`                                   | `"https://slsa.dev/container-based-build/v0.1?draft"` | Identifies the container-based build type.                                                                                                                                                                         |
+| `externalParameters.source`                   | `slsa.ResourceDescriptor`                             | An artifact reference specifying the location of the source repository.                                                                                                                                            |
+| `externalParameters.builderImage`             | `slsa.ResourceDescriptor`                             | An artifact reference specifying the container base image used to build the artifacts.                                                                                                                             |
+| `externalParameters.configPath`               | `".github/configs-docker/config.toml"`                | The location of the configuration file, relative to the root of the source repository.                                                                                                                             |
+| `externalParameters.buildConfig`              | JSON object                                           | An object describing the build configuration.                                                                                                                                                                      |
+| `externalParameters.buildConfig.ArtifactPath` | `"dist/**"`                                           | The path describing the output artifacts to attest to and upload.                                                                                                                                                  |
+| `externalParameters.buildConfig.Command`      | `"["npm", "run", "all"]"`                             | The build command invoked in the container image to produce the output artifacts.                                                                                                                                  |
+| `externalParameters.resolvedDependencies`     | `slsa.ResourceDescriptor`                             | Contains the artifact reference specifying the resolved source and the binary used by the reusable workflow to build the artifact and generate the build definition. See the [CLI tool](#command-line-tool) below. |
 
 The [CLI tool](#command-line-tool) described in `externalParameters.resolvedDependencies` contains the `uri` of the source that was used to build the artifact (from this GitHub repository). The `digest` referes to the cryptographic digest of the built binary. Using this information, a verifier may download the source artifact from the GitHub releases inferred by the URI and verify its digest.
 
@@ -260,7 +260,7 @@ as an [in-toto](https://in-toto.io/) statement with a SLSA predicate.
       "buildType": "https://slsa.dev/container-based-build/v0.1?draft",
       "externalParameters": {
         "source": {
-          "uri": "git+https://github.com/slsa-framework/example-package@refs/heads/main",
+          "uri": "git+https://github.com/jul-sh/example-package@refs/heads/main",
           "digest": {
             "sha1": "ca220e54c07b6fcdd758184a12c132ee3ae531f1"
           }
@@ -308,15 +308,15 @@ as an [in-toto](https://in-toto.io/) statement with a SLSA predicate.
         "GITHUB_WORKFLOW_REF": "asraa/slsa-on-github-test/.github/workflows/go-builder.yml@refs/heads/main",
         "GITHUB_WORKFLOW_SHA": "c35e20e93ad5465899c12ce71cd6253d6e28fb15",
         "GITHUB_BASE_REF": "",
-        "GITHUB_EVENT_PAYLOAD": {},
+        "GITHUB_EVENT_PAYLOAD": {}
       }
     },
     "runDetails": {
       "builder": {
-        "id": "https://github.com/slsa-framework/slsa-github-generator/.github/workflows/builder_container-based_slsa3.yml@refs/tags/v1.5.0"
+        "id": "https://github.com/jul-sh/slsa-github-generator/.github/workflows/builder_container-based_slsa3.yml@refs/tags/v1.5.0"
       },
       "metadata": {
-        "invocationId": "https://github.com/slsa-framework/example-package/actions/runs/4310284899/attempts/1"
+        "invocationId": "https://github.com/jul-sh/example-package/actions/runs/4310284899/attempts/1"
       }
     }
   }
@@ -354,7 +354,7 @@ go run *.go  dry-run \
   --build-config-path internal/builders/docker/testdata/config.toml \
   --builder-image bash@sha256:9e2ba52487d945504d250de186cb4fe2e3ba023ed2921dd6ac8b97ed43e76af9 \
   --git-commit-digest sha1:cf5804b5c6f1a4b2a0b03401a487dfdfbe3a5f00 \
-  --source-repo git+https://github.com/slsa-framework/slsa-github-generator \
+  --source-repo git+https://github.com/jul-sh/slsa-github-generator \
   --build-definition-path bd.json \
   --force-checkout
 ```
@@ -374,7 +374,7 @@ go run *.go build \
   --build-config-path internal/builders/docker/testdata/config.toml \
   --builder-image bash@sha256:9e2ba52487d945504d250de186cb4fe2e3ba023ed2921dd6ac8b97ed43e76af9 \
   --git-commit-digest sha1:cf5804b5c6f1a4b2a0b03401a487dfdfbe3a5f00 \
-  --source-repo git+https://github.com/slsa-framework/slsa-github-generator \
+  --source-repo git+https://github.com/jul-sh/slsa-github-generator \
   --subjects-path subjects.json \
   --output-folder /tmp/build-outputs \
   --force-checkout

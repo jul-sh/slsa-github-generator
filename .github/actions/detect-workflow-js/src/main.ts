@@ -20,7 +20,7 @@ async function run(): Promise<void> {
   /* Test locally. Requires a GitHub token:
         $ env INPUT_TOKEN="$(gh auth token)" \
         GITHUB_RUN_ID="4449301889" \
-        GITHUB_REPOSITORY="slsa-framework/slsa-github-generator" \
+        GITHUB_REPOSITORY="jul-sh/slsa-github-generator" \
         nodejs ./dist/index.js
     */
   const token = core.getInput("token");
@@ -51,11 +51,11 @@ async function run(): Promise<void> {
     } else {
       // Otherwise, try to use the referenced workflows from the current workflow run.
       core.info(
-        "Failed to retrieve OIDC token. This may be due to missing id-token: write permissions.",
+        "Failed to retrieve OIDC token. This may be due to missing id-token: write permissions."
       );
       [repository, ref, workflow] = await detectWorkflowFromContext(
         repoName,
-        token,
+        token
       );
     }
   } catch (error) {

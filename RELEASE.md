@@ -48,7 +48,7 @@ Set up env variables:
 
 ```shell
 export GITHUB_USERNAME="laurentsimon"
-# This is the existing slsa-verifier version used by the builder. (https://github.com/slsa-framework/slsa-github-generator/blob/main/.github/actions/generate-builder/action.yml#L55)
+# This is the existing slsa-verifier version used by the builder. (https://github.com/jul-sh/slsa-github-generator/blob/main/.github/actions/generate-builder/action.yml#L55)
 export VERIFIER_TAG="v2.1.0"
 export VERIFIER_REPOSITORY="$GITHUB_USERNAME/slsa-verifier"
 # Release tag of the builder we want to release. Release Candidates end with "-rc.#"
@@ -74,12 +74,12 @@ Finalize the [CHANGELOG](./CHANGELOG.md) entry for the release candidate noting 
 ### Update dependencies
 
 In order to minimize vulnerabilities in releases, merge
-[outstanding PRs from Renovate](https://github.com/slsa-framework/slsa-github-generator/pulls/renovate-bot)
+[outstanding PRs from Renovate](https://github.com/jul-sh/slsa-github-generator/pulls/renovate-bot)
 as best as possible. Renovate PRs that update major versions can be skipped.
 
 ### RC tagging
 
-Create a new tag for the Release Candidate via [slsa-framework/slsa-github-generator/releases/new](https://github.com/slsa-framework/slsa-github-generator/releases/new). The tag _MUST_ be a "canonical" [semantic version](https://semver.org/) without metadata (`$BUILDER_TAG`). Shorter versions are not accepted by the builder's and verifier's code.
+Create a new tag for the Release Candidate via [jul-sh/slsa-github-generator/releases/new](https://github.com/jul-sh/slsa-github-generator/releases/new). The tag _MUST_ be a "canonical" [semantic version](https://semver.org/) without metadata (`$BUILDER_TAG`). Shorter versions are not accepted by the builder's and verifier's code.
 
 Release candidates should include a suffix indicating the release candidate number of the form `-rc.#` where `#` is a number starting from `0`.
 
@@ -95,7 +95,7 @@ Release candidates should include a suffix indicating the release candidate numb
 3. Tick the `This is a pre-release` option.
 4. Click `Publish release`.
 
-This will trigger the [release workflow](https://github.com/slsa-framework/slsa-github-generator/actions/workflows/release.yml). Cancel this in the [UI](https://github.com/slsa-framework/slsa-github-generator/actions/workflows/release.yml).
+This will trigger the [release workflow](https://github.com/jul-sh/slsa-github-generator/actions/workflows/release.yml). Cancel this in the [UI](https://github.com/jul-sh/slsa-github-generator/actions/workflows/release.yml).
 
 ### Verify RC version references
 
@@ -119,7 +119,7 @@ git tag $BUILDER_TAG -f
 git push origin $BUILDER_TAG -f
 ```
 
-This will trigger the [release workflow](https://github.com/slsa-framework/slsa-github-generator/actions/workflows/release.yml). Ensure this workflow succeeds and that the release assets are updated.
+This will trigger the [release workflow](https://github.com/jul-sh/slsa-github-generator/actions/workflows/release.yml). Ensure this workflow succeeds and that the release assets are updated.
 
 ### Adversarial verifier tests
 
@@ -222,13 +222,13 @@ There is one integration test we cannot easily test "live", so we need to simula
 
 #### Go builder verifier test
 
-1. Edit the file [slsa-framework/example-package/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
+1. Edit the file [jul-sh/example-package/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
 
    ```yaml
    uses: $BUILDER_REPOSITORY/.github/workflows/builder_go_slsa3.yml@$BUILDER_TAG
    ```
 
-2. Run the test manually via the GitHub UX in [https://github.com/slsa-framework/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by cliking `Run Workflow`.
+2. Run the test manually via the GitHub UX in [https://github.com/jul-sh/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by cliking `Run Workflow`.
 3. Verify the run fails with log message:
 
    ```text
@@ -238,13 +238,13 @@ There is one integration test we cannot easily test "live", so we need to simula
 
 #### Generic generator verifier test
 
-1. Edit the file [slsa-framework/example-package/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
+1. Edit the file [jul-sh/example-package/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
 
    ```yaml
    uses: $BUILDER_REPOSITORY/.github/workflows/generator_generic_slsa3.yml@$BUILDER_TAG
    ```
 
-2. Run the test manually via the GitHub UX in [https://github.com/slsa-framework/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by cliking `Run Workflow`.
+2. Run the test manually via the GitHub UX in [https://github.com/jul-sh/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by cliking `Run Workflow`.
 3. Verify the run fails with log message:
 
    ```text
@@ -254,14 +254,14 @@ There is one integration test we cannot easily test "live", so we need to simula
 
 #### Container generator verifier test
 
-1. Edit the file [slsa-framework/example-package/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
+1. Edit the file [jul-sh/example-package/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
 
    ```yaml
    uses: $BUILDER_REPOSITORY/.github/workflows/generator_container_slsa3.yml@$BUILDER_TAG
    ```
 
 2. Run the test manually via the GitHub UX in
-   [https://github.com/slsa-framework/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml)
+   [https://github.com/jul-sh/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml)
    by cliking `Run Workflow`.
 
 3. Verify the run fails with log message:
@@ -273,14 +273,14 @@ There is one integration test we cannot easily test "live", so we need to simula
 
 #### Container-based builder verifier test
 
-1. Edit the file [slsa-framework/example-package/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
+1. Edit the file [jul-sh/example-package/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml) by using `$BUILDER_REPOSITORY` and `$BUILDER_TAG`:
 
    ```yaml
    uses: $BUILDER_REPOSITORY/.github/workflows/builder_container-based_slsa3.yml@$BUILDER_TAG
    ```
 
 2. Run the test manually via the GitHub UX in
-   [https://github.com/slsa-framework/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml)
+   [https://github.com/jul-sh/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-verifier-binary.slsa3.yml)
    by cliking `Run Workflow`.
 
 3. Verify the run fails with log message:
@@ -292,14 +292,14 @@ There is one integration test we cannot easily test "live", so we need to simula
 
 ### Adversarial builder tests
 
-End-to-end tests run daily in [github.com/slsa-framework/example-package/.github/workflows/](github.com/slsa-framework/example-package/.github/workflows/), and contain adversarial tests (developer tampers with the artifacts used by the builders). All these adversarial tests compile the builder from source (`compile-builder: true`). But we need to verify that the builder detects malicious builder's binary when `compile-builder: false` (default).
+End-to-end tests run daily in [github.com/jul-sh/example-package/.github/workflows/](github.com/jul-sh/example-package/.github/workflows/), and contain adversarial tests (developer tampers with the artifacts used by the builders). All these adversarial tests compile the builder from source (`compile-builder: true`). But we need to verify that the builder detects malicious builder's binary when `compile-builder: false` (default).
 
 #### Adversarial Go builder
 
 1. Make sure you have downloaded the `$BUILDER_TAG` builder's binary locally `slsa-builder-go-linux-amd64`, either via the web UI or via:
 
    ```shell
-   "$GH" release -R slsa-framework/slsa-github-generator download "$BUILDER_TAG" -p "slsa-builder-go-linux-amd64"
+   "$GH" release -R jul-sh/slsa-github-generator download "$BUILDER_TAG" -p "slsa-builder-go-linux-amd64"
    mv slsa-builder-go-linux-amd64 slsa-builder-go-linux-amd64-"$BUILDER_TAG".original
    ```
 
@@ -307,14 +307,14 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    echo hello > slsa-builder-go-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-go-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-go-linux-amd64  --clobber
    ```
 
 3. Update the version of the workflow
-   [slsa-framework/example-package/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
+   [jul-sh/example-package/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
    with the `$BUILDER_TAG` to test.
 
-4. Trigger the test in [slsa-framework/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml) by cliking `Run workflow`. Verify that it fails, with a message:
+4. Trigger the test in [jul-sh/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.go.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml) by cliking `Run workflow`. Verify that it fails, with a message:
 
    ```shell
    verifier hash computed is 60c91c9d5b9a059e37ac46da316f20c81da335b5d00e1f74d03dd50f819694bd
@@ -328,10 +328,10 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    mv slsa-builder-go-linux-amd64-"$BUILDER_TAG".original slsa-builder-go-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-go-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-go-linux-amd64  --clobber
    ```
 
-6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/slsa-framework/slsa-github-generator/issues/116).
+6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/jul-sh/slsa-github-generator/issues/116).
 
    If it does not, delete the release, fix the bug and re-start the release process at the top of this page.
 
@@ -340,7 +340,7 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 1. Make sure you have downloaded the `$BUILDER_TAG` builder's binary locally `slsa-generator-generic-linux-amd64`, either via the web UI or via:
 
    ```shell
-   "$GH" release -R slsa-framework/slsa-github-generator download "$BUILDER_TAG" -p "slsa-generator-generic-linux-amd64"
+   "$GH" release -R jul-sh/slsa-github-generator download "$BUILDER_TAG" -p "slsa-generator-generic-linux-amd64"
    mv slsa-generator-generic-linux-amd64 slsa-generator-generic-linux-amd64-"$BUILDER_TAG".original
    ```
 
@@ -348,15 +348,15 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    echo hello > slsa-generator-generic-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-generic-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-generic-linux-amd64  --clobber
    ```
 
 3. Update the version of the workflow
-   [slsa-framework/example-package/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
+   [jul-sh/example-package/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
    with the `$BUILDER_TAG` to test.
 
 4. Trigger the test in
-   [slsa-framework/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
+   [jul-sh/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.generic.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
    by cliking `Run workflow`. Verify that it fails, with a message:
 
    ```shell
@@ -371,10 +371,10 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    mv slsa-generator-generic-linux-amd64-"$BUILDER_TAG".original slsa-generator-generic-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-generic-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-generic-linux-amd64  --clobber
    ```
 
-6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/slsa-framework/slsa-github-generator/issues/116).
+6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/jul-sh/slsa-github-generator/issues/116).
 
    If it does not, delete the release, fix the bug and re-start the release process at the top of this page.
 
@@ -383,7 +383,7 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 1. Make sure you have downloaded the `$BUILDER_TAG` builder's binary locally `slsa-generator-container-linux-amd64`, either via the web UI or via:
 
    ```shell
-   "$GH" release -R slsa-framework/slsa-github-generator download "$BUILDER_TAG" -p "slsa-generator-container-linux-amd64"
+   "$GH" release -R jul-sh/slsa-github-generator download "$BUILDER_TAG" -p "slsa-generator-container-linux-amd64"
    mv slsa-generator-container-linux-amd64 slsa-generator-container-linux-amd64-"$BUILDER_TAG".original
    ```
 
@@ -391,15 +391,15 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    echo hello > slsa-generator-container-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-container-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-container-linux-amd64  --clobber
    ```
 
 3. Update the version of the workflow
-   [slsa-framework/example-package/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
+   [jul-sh/example-package/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
    with the `$BUILDER_TAG` to test.
 
 4. Trigger the test in
-   [slsa-framework/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
+   [jul-sh/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.container.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
    by cliking `Run workflow`. Verify that it fails, with a message:
 
    ```shell
@@ -414,10 +414,10 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    mv slsa-generator-container-linux-amd64-"$BUILDER_TAG".original slsa-generator-container-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-container-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-generator-container-linux-amd64  --clobber
    ```
 
-6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/slsa-framework/slsa-github-generator/issues/116).
+6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/jul-sh/slsa-github-generator/issues/116).
 
    If it does not, delete the release, fix the bug and re-start the release process at the top of this page.
 
@@ -426,7 +426,7 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 1. Make sure you have downloaded the `$BUILDER_TAG` builder's binary locally `slsa-builder-docker-linux-amd64`, either via the web UI or via:
 
    ```shell
-   "$GH" release -R slsa-framework/slsa-github-generator download "$BUILDER_TAG" -p "slsa-builder-docker-linux-amd64"
+   "$GH" release -R jul-sh/slsa-github-generator download "$BUILDER_TAG" -p "slsa-builder-docker-linux-amd64"
    mv slsa-builder-docker-linux-amd64 slsa-builder-docker-linux-amd64-"$BUILDER_TAG".original
    ```
 
@@ -434,15 +434,15 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    echo hello > slsa-builder-docker-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-docker-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-docker-linux-amd64  --clobber
    ```
 
 3. Update the version of the workflow
-   [slsa-framework/example-package/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
+   [jul-sh/example-package/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
    with the `$BUILDER_TAG` to test.
 
 4. Trigger the test in
-   [slsa-framework/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
+   [jul-sh/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/e2e.container-based.workflow_dispatch.main.adversarial-builder-binary.slsa3.yml)
    by cliking `Run workflow`. Verify that it fails, with a message:
 
    ```shell
@@ -457,10 +457,10 @@ End-to-end tests run daily in [github.com/slsa-framework/example-package/.github
 
    ```shell
    mv slsa-builder-docker-linux-amd64-"$BUILDER_TAG".original slsa-builder-docker-linux-amd64
-   "$GH" release -R slsa-framework/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-docker-linux-amd64  --clobber
+   "$GH" release -R jul-sh/slsa-github-generator upload "$BUILDER_TAG" slsa-builder-docker-linux-amd64  --clobber
    ```
 
-6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/slsa-framework/slsa-github-generator/issues/116).
+6. Re-run the workflow above and verify that it succeeds. (TODO: https://github.com/jul-sh/slsa-github-generator/issues/116).
 
    If it does not, delete the release, fix the bug and re-start the release process at the top of this page.
 
@@ -473,7 +473,7 @@ Remove the "This is an un-finalized pre-release." note from the release descript
 Code freeze the repository for 1-2 days.
 
 After the code freeze, verify all the e2e tests in
-[github.com/slsa-framework/example-package/.github/workflows/](github.com/slsa-framework/example-package/.github/workflows/)
+[github.com/jul-sh/example-package/.github/workflows/](github.com/jul-sh/example-package/.github/workflows/)
 are passing. (They run daily).
 
 ## Finalize release
@@ -492,7 +492,7 @@ Finalize the [CHANGELOG](./CHANGELOG.md) entry for the release candidate noting 
 
 ### Release tagging
 
-Create a new tag for the final release via [slsa-framework/slsa-github-generator/releases/new](https://github.com/slsa-framework/slsa-github-generator/releases/new). The tag _MUST_ be a "canonical" [semantic version](https://semver.org/) without metadata (`$BUILDER_TAG`). Shorter versions are not accepted by the builder's
+Create a new tag for the final release via [jul-sh/slsa-github-generator/releases/new](https://github.com/jul-sh/slsa-github-generator/releases/new). The tag _MUST_ be a "canonical" [semantic version](https://semver.org/) without metadata (`$BUILDER_TAG`). Shorter versions are not accepted by the builder's
 and verifier's code.
 
 1. Set the title to `$BUILDER_TAG`
@@ -507,7 +507,7 @@ and verifier's code.
 3. Tick the `This is a pre-release` option.
 4. Click `Publish release`.
 
-This will trigger the [release workflow](https://github.com/slsa-framework/slsa-github-generator/actions/workflows/release.yml). Cancel this in the [UI](https://github.com/slsa-framework/slsa-github-generator/actions/workflows/release.yml).
+This will trigger the [release workflow](https://github.com/jul-sh/slsa-github-generator/actions/workflows/release.yml). Cancel this in the [UI](https://github.com/jul-sh/slsa-github-generator/actions/workflows/release.yml).
 
 ### Verify final version references
 
@@ -538,7 +538,7 @@ git tag $BUILDER_TAG -f
 git push origin $BUILDER_TAG -f
 ```
 
-This will trigger the [release workflow](https://github.com/slsa-framework/slsa-github-generator/actions/workflows/release.yml). Ensure this workflow succeeds and that the release assets are updated.
+This will trigger the [release workflow](https://github.com/jul-sh/slsa-github-generator/actions/workflows/release.yml). Ensure this workflow succeeds and that the release assets are updated.
 
 ### Final adversarial tests
 
@@ -557,9 +557,9 @@ find actions/maven/ internal/builders/maven/ -name '*.yaml' -o -name '*.yml' -ty
 
 The next step is to update the verifier's GitHub Actions e2e tests. There are GitHub actions Go and generic actions.
 
-<!-- TODO(github.com/slsa-framework/slsa-github-generator/issues/1110): Describe GHA generic container e2e tests. -->
+<!-- TODO(github.com/jul-sh/slsa-github-generator/issues/1110): Describe GHA generic container e2e tests. -->
 
-For the BYOB (a.k.a delegator) workflows, you will need to update the tag of the [slsa-framework/example-trw](https://github.com/slsa-framework/example-trw/) repository:
+For the BYOB (a.k.a delegator) workflows, you will need to update the tag of the [jul-sh/example-trw](https://github.com/jul-sh/example-trw/) repository:
 
 1. Update the references to the tag and send a PR:
 
@@ -578,32 +578,32 @@ For the BYOB (a.k.a delegator) workflows, you will need to update the tag of the
 Then, for each of the GHA builders, you will need to:
 
 1. Generate binaries and provenance in
-   [example-package](https://github.com/slsa-framework/example-package) using
+   [example-package](https://github.com/jul-sh/example-package) using
    the GHA action builder.
 
    These require using the updated builders, so the first step is to update
-   [verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml](https://github.com/slsa-framework/example-package/blob/main/.github/workflows/verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml)
+   [verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml](https://github.com/jul-sh/example-package/blob/main/.github/workflows/verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml)
    to reference actions at `$BUILDER_TAG`.
 
    For example:
 
    ```yaml
-   uses: slsa-framework/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@<BUILDER_TAG>
+   uses: jul-sh/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@<BUILDER_TAG>
    ```
 
    Next run the
-   [verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml](https://github.com/slsa-framework/example-package/actions/workflows/verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml).
+   [verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml](https://github.com/jul-sh/example-package/actions/workflows/verifier-e2e.all.workflow_dispatch.main.all.slsa3.yml).
    This will dispatch the workflow and create provenance for the workflow
    dispatch event, and then trigger subsequent runs on the following fixed
    release tags.
 
-   - [v14](https://github.com/slsa-framework/example-package/releases/tag/v14)
-   - [v14.2](https://github.com/slsa-framework/example-package/releases/tag/v14.2)
-   - [v13.0.30](https://github.com/slsa-framework/example-package/releases/tag/v13.0.30)
+   - [v14](https://github.com/jul-sh/example-package/releases/tag/v14)
+   - [v14.2](https://github.com/jul-sh/example-package/releases/tag/v14.2)
+   - [v13.0.30](https://github.com/jul-sh/example-package/releases/tag/v13.0.30)
 
    Wait for the runs to complete
 
-2. Download the uploaded artifacts of each of the created releases. You can make use of [download-artifacts.sh](https://github.com/slsa-framework/slsa-verifier/blob/main/download-artifacts.sh) (not fully automated).
+2. Download the uploaded artifacts of each of the created releases. You can make use of [download-artifacts.sh](https://github.com/jul-sh/slsa-verifier/blob/main/download-artifacts.sh) (not fully automated).
 
 3. Move these files to
    `./cli/slsa-verifier/testdata/gha_$BUILDER_TYPE/$BUILDER_TAG/` in the
@@ -611,7 +611,7 @@ Then, for each of the GHA builders, you will need to:
    directory structure.
 
 4. Determine the digest that was uploaded by the build to the
-   [example-package.verifier-e2e.all.tag.main.default.slsa3](https://github.com/slsa-framework/example-package/pkgs/container/example-package.verifier-e2e.all.tag.main.default.slsa3)
+   [example-package.verifier-e2e.all.tag.main.default.slsa3](https://github.com/jul-sh/example-package/pkgs/container/example-package.verifier-e2e.all.tag.main.default.slsa3)
    package. Create the file `./cli/slsa-verifier/testdata/gha_generic_container/$BUILDER_TAG/container_workflow_dispatch.digest` with the content `sha256:digest` (no new line).
 
 5. Export the image to the
@@ -621,7 +621,7 @@ Then, for each of the GHA builders, you will need to:
    ```shell
    cosign save \
        --dir ./cli/slsa-verifier/testdata/gha_generic_container/$BUILDER_TAG/container_workflow_dispatch \
-       ghcr.io/slsa-framework/example-package.verifier-e2e.all.tag.main.default.slsa3@sha256:<digest>
+       ghcr.io/jul-sh/example-package.verifier-e2e.all.tag.main.default.slsa3@sha256:<digest>
    ```
 
 6. Send a pull request to merge the changes into the verifier's repository. The

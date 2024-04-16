@@ -24,9 +24,9 @@ describe("createStatement", () => {
     },
   ];
   const predicate = {
-    buildType: "https://github.com/slsa-framework/slsa-github-generator/go@v1",
+    buildType: "https://github.com/jul-sh/slsa-github-generator/go@v1",
     builder: {
-      id: "https://github.com/slsa-framework/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@refs/tags/v0.0.1",
+      id: "https://github.com/jul-sh/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@refs/tags/v0.0.1",
     },
   };
 
@@ -36,7 +36,7 @@ describe("createStatement", () => {
     const attestation = statement.createStatement(
       subjects,
       predicateType,
-      predicate,
+      predicate
     );
     expect(attestation.subject).toEqual(subjects);
     expect(attestation.predicateType).toEqual(predicateType);
@@ -72,9 +72,9 @@ describe("writeAttestation", () => {
   };
 
   const predicate = {
-    buildType: "https://github.com/slsa-framework/slsa-github-generator/go@v1",
+    buildType: "https://github.com/jul-sh/slsa-github-generator/go@v1",
     builder: {
-      id: "https://github.com/slsa-framework/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@refs/tags/v0.0.1",
+      id: "https://github.com/jul-sh/slsa-github-generator/.github/workflows/builder_go_slsa3.yml@refs/tags/v0.0.1",
     },
   };
 
@@ -89,10 +89,10 @@ describe("writeAttestation", () => {
     const attestations: Record<string, string> = statement.writeAttestations(
       "layoutMock",
       predicateType,
-      "predicateMock",
+      "predicateMock"
     );
     expect(Object.keys(attestations)).toEqual(
-      expect.arrayContaining(["attestation1.intoto", "attestation2.intoto"]),
+      expect.arrayContaining(["attestation1.intoto", "attestation2.intoto"])
     );
   });
 
@@ -127,7 +127,7 @@ describe("writeAttestation", () => {
     fs.readFileSync.mockReturnValueOnce(JSON.stringify(predicate));
 
     expect(() =>
-      statement.writeAttestations("layoutMock", predicateType, "predicateMock"),
+      statement.writeAttestations("layoutMock", predicateType, "predicateMock")
     ).toThrow(Error);
   });
 
@@ -143,7 +143,7 @@ describe("writeAttestation", () => {
     fs.readFileSync.mockReturnValueOnce(JSON.stringify(predicate));
 
     expect(() =>
-      statement.writeAttestations("layoutMock", predicateType, "predicateMock"),
+      statement.writeAttestations("layoutMock", predicateType, "predicateMock")
     ).toThrow(Error);
   });
 });
