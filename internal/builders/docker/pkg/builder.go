@@ -484,7 +484,7 @@ type TempFileResult struct {
 }
 
 // A helper function used by saveToTempFile to process one individual file.
-func saveOneTempFile(verbose bool, reader io.Reader, ch chan TempFileResult) {
+func saveOneTempFile(verbose bool, reader io.Reader, fileChannel chan TempFileResult, printChannel chan string) {
 		var allBytes []byte
 		scanner := bufio.NewScanner(reader)
 		for scanner.Scan() {
@@ -493,21 +493,21 @@ func saveOneTempFile(verbose bool, reader io.Reader, ch chan TempFileResult) {
 			allBytes = append(allBytes, '\n')
 
 			if verbose {
-				fmt.Printf("%s\n", bytes)
+				printChannel <- string(bytes)
 			}
 		}
 
 		tmpfile, err := os.CreateTemp("", "log-*.txt")
 		if err != nil {
-			ch <- TempFileResult { Err: err }
+			fileChannel <- TempFileResult { Err: err }
 			return
 		}
 		if _, err := tmpfile.Write(allBytes); err != nil {
 			tmpfile.Close()
-			ch <- TempFileResult { Err: fmt.Errorf("couldn't write bytes to tempfile: %v", err) }
+			fileChannel <- TempFileResult { Err: fmt.Errorf("couldn't write bytes to tempfile: %v", err) }
 		}
 
-		ch <- TempFileResult { File: tmpfile }
+		fileChannel <- TempFileResult { File: tmpfile }
 }
 
 // saveToTempFile creates a tempfile in `/tmp` and writes the content of the
@@ -518,24 +518,30 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 		fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
 	}
 	var wg sync.WaitGroup
-	var ch = make(chan TempFileResult, len(readers))
+	var fileChannel = make(chan TempFileResult, len(readers))
+	var printChannel = make(chan string)
 
 	for _, reader := range readers {
 		wg.Add(1)
 		go func(reader io.Reader) {
 			defer wg.Done()
-			saveOneTempFile(verbose, reader, ch)
+			saveOneTempFile(verbose, reader, fileChannel, printChannel)
 		}(reader)
 	}
 
 	// Close the channel once all goroutines have finished.
 	go func() {
 		wg.Wait()
-		close(ch)
+		close(printChannel)
+		close(fileChannel)
 	}()
 
+	for line := range printChannel {
+		fmt.Println(line)
+	}
+
 	var files []string
-	for result := range ch {
+	for result := range fileChannel {
 		if result.Err != nil {
 			return nil, result.Err
 		}
