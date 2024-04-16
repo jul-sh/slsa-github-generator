@@ -515,7 +515,7 @@ func saveOneTempFile(verbose bool, reader io.Reader, fileChannel chan TempFileRe
 // It processes all provided readers concurrently.
 func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 	if verbose {
-		fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
+		fmt.Print("\n\n>>>>>>>>>>>>>> output from command, patched gh action <<<<<<<<<<<<<<\n")
 	}
 	var wg sync.WaitGroup
 	var fileChannel = make(chan TempFileResult, len(readers))
