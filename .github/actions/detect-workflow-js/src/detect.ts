@@ -81,6 +81,8 @@ export async function detectWorkflowFromContext(
 
   let [repository, ref, workflow] = ["", "", ""];
 
+  console.log("JUL-SH WORKFLOW");
+
   // If this is a pull request on the main repository
   // (slsa-framework/slsa-github-generator), then look for the repo and head
   // SHA from the pull_request event value. Pull requests on forks are not
@@ -106,15 +108,8 @@ export async function detectWorkflowFromContext(
       const [workflowOwner, workflowRepo, ...workflowArray] =
         workflowPath[0].split("/");
       if (workflowRepo === "slsa-github-generator") {
-        if (!reusableWorkflow.ref) {
-          return Promise.reject(
-            Error(
-              "Referenced slsa-github-generator workflow missing ref: was the workflow invoked by digest?",
-            ),
-          );
-        }
         const tmpRepository = [workflowOwner, workflowRepo].join("/");
-        const tmpRef = reusableWorkflow.ref;
+        const tmpRef = reusableWorkflow.sha;
         const tmpWorkflow = workflowArray.join("/");
         // If there are multiple invocations of reusable workflows in
         // a single caller workflow, ensure that the repositories and refs are
