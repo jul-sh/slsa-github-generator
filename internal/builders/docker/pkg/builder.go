@@ -214,7 +214,7 @@ func runDockerRun(db *DockerBuild) error {
 		return fmt.Errorf("couldn't start the 'git checkout' command: %v", err)
 	}
 
-	files, err := saveToTempFile(db.config.Verbose, stdout, stderr)
+	files, err := saveToTempFile(db.config.Verbose, stderr, stdout)
 	if err != nil {
 		return fmt.Errorf("cannot save logs and errs to file: %v", err)
 	}
