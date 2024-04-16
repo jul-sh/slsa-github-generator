@@ -480,34 +480,34 @@ func (c *GitClient) checkoutGitCommit() error {
 
 type TempFileResult struct {
 	File *os.File
-	Err error
+	Err  error
 }
 
 // A helper function used by saveToTempFile to process one individual file.
 func saveOneTempFile(verbose bool, reader io.Reader, fileChannel chan TempFileResult, printChannel chan string) {
-		var allBytes []byte
-		scanner := bufio.NewScanner(reader)
-		for scanner.Scan() {
-			bytes := scanner.Bytes()
-			allBytes = append(allBytes, bytes...)
-			allBytes = append(allBytes, '\n')
+	var allBytes []byte
+	scanner := bufio.NewScanner(reader)
+	for scanner.Scan() {
+		bytes := scanner.Bytes()
+		allBytes = append(allBytes, bytes...)
+		allBytes = append(allBytes, '\n')
 
-			if verbose {
-				printChannel <- string(bytes)
-			}
+		if verbose {
+			printChannel <- string(bytes)
 		}
+	}
 
-		tmpfile, err := os.CreateTemp("", "log-*.txt")
-		if err != nil {
-			fileChannel <- TempFileResult { Err: err }
-			return
-		}
-		if _, err := tmpfile.Write(allBytes); err != nil {
-			tmpfile.Close()
-			fileChannel <- TempFileResult { Err: fmt.Errorf("couldn't write bytes to tempfile: %v", err) }
-		}
+	tmpfile, err := os.CreateTemp("", "log-*.txt")
+	if err != nil {
+		fileChannel <- TempFileResult{Err: err}
+		return
+	}
+	if _, err := tmpfile.Write(allBytes); err != nil {
+		tmpfile.Close()
+		fileChannel <- TempFileResult{Err: fmt.Errorf("couldn't write bytes to tempfile: %v", err)}
+	}
 
-		fileChannel <- TempFileResult { File: tmpfile }
+	fileChannel <- TempFileResult{File: tmpfile}
 }
 
 // saveToTempFile creates a tempfile in `/tmp` and writes the content of the
@@ -515,7 +515,7 @@ func saveOneTempFile(verbose bool, reader io.Reader, fileChannel chan TempFileRe
 // It processes all provided readers concurrently.
 func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 	if verbose {
-		fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
+		fmt.Print("\n\n>>>>>>>>>>>>>> output from command, patched gh action <<<<<<<<<<<<<<\n")
 	}
 	var wg sync.WaitGroup
 	var fileChannel = make(chan TempFileResult, len(readers))
