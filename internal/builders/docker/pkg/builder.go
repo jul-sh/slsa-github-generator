@@ -487,7 +487,6 @@ type TempFileResult struct {
 func saveOneTempFile(verbose bool, reader io.Reader, ch chan TempFileResult) {
 		var allBytes []byte
 		scanner := bufio.NewScanner(reader)
-		fmt.Println("READING....")
 		for scanner.Scan() {
 			bytes := scanner.Bytes()
 			allBytes = append(allBytes, bytes...)
