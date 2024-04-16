@@ -23,6 +23,7 @@ package pkg
 // Docker image.
 
 import (
+	"bufio"
 	"crypto/sha256"
 	"encoding/hex"
 	"encoding/json"
@@ -36,6 +37,7 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"sync"
 
 	intoto "github.com/in-toto/in-toto-golang/in_toto"
 	slsa1 "github.com/in-toto/in-toto-golang/in_toto/slsa_provenance/v1"
@@ -476,17 +478,16 @@ func (c *GitClient) checkoutGitCommit() error {
 	return nil
 }
 
-// saveToTempFile creates a tempfile in `/tmp` and writes the content of the
-// given readers to that file.
-func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
-	var files []string
-	for _, reader := range readers {
-		var allBytes []byte
-		if verbose {
-			fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
-		}
+type TempFileResult struct {
+	File *os.File
+	Err error
+}
 
+// A helper function used by saveToTempFile to process one individual file.
+func saveOneTempFile(verbose bool, reader io.Reader, ch chan TempFileResult) {
+		var allBytes []byte
 		scanner := bufio.NewScanner(reader)
+		fmt.Println("READING....")
 		for scanner.Scan() {
 			bytes := scanner.Bytes()
 			allBytes = append(allBytes, bytes...)
@@ -497,24 +498,49 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 			}
 		}
 
-		if verbose {
-			fmt.Print("=================================================\n\n\n")
-		}
-
-		if err := scanner.Err(); err != nil {
-			return files, fmt.Errorf("error reading from command output: %v", err)
-		}
-
 		tmpfile, err := os.CreateTemp("", "log-*.txt")
 		if err != nil {
-			return files, fmt.Errorf("couldn't create tempfile: %v", err)
+			ch <- TempFileResult { Err: err }
+			return
 		}
-
 		if _, err := tmpfile.Write(allBytes); err != nil {
 			tmpfile.Close()
-			return files, fmt.Errorf("couldn't write bytes to tempfile: %v", err)
+			ch <- TempFileResult { Err: fmt.Errorf("couldn't write bytes to tempfile: %v", err) }
 		}
-		files = append(files, tmpfile.Name())
+
+		ch <- TempFileResult { File: tmpfile }
+}
+
+// saveToTempFile creates a tempfile in `/tmp` and writes the content of the
+// given readers to that file.
+// It processes all provided readers concurrently.
+func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
+	if verbose {
+		fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
+	}
+	var wg sync.WaitGroup
+	var ch = make(chan TempFileResult, len(readers))
+
+	for _, reader := range readers {
+		wg.Add(1)
+		go func(reader io.Reader) {
+			defer wg.Done()
+			saveOneTempFile(verbose, reader, ch)
+		}(reader)
+	}
+
+	// Close the channel once all goroutines have finished.
+	go func() {
+		wg.Wait()
+		close(ch)
+	}()
+
+	var files []string
+	for result := range ch {
+		if result.Err != nil {
+			return nil, result.Err
+		}
+		files = append(files, result.File.Name())
 	}
 
 	return files, nil
