@@ -485,29 +485,30 @@ type tempFileResult struct {
 
 // A helper function used by saveToTempFile to process one individual file.
 func saveOneTempFile(verbose bool, reader io.Reader, fileChannel chan tempFileResult, printChannel chan string) {
-	var allBytes []byte
+	tmpFile, tmpFileErr := os.CreateTemp("", "log-*.txt")
+
 	scanner := bufio.NewScanner(reader)
 	for scanner.Scan() {
 		bytes := scanner.Bytes()
-		allBytes = append(allBytes, bytes...)
-		allBytes = append(allBytes, '\n')
+
+		if tmpFile != nil {
+			_, err := fmt.Fprintln(tmpFile, bytes)
+			if err != nil {
+				tmpFileErr = err
+				tmpFile = nil
+			}
+		}
 
 		if verbose {
 			printChannel <- string(bytes)
 		}
 	}
 
-	tmpfile, err := os.CreateTemp("", "log-*.txt")
-	if err != nil {
-		fileChannel <- tempFileResult{Err: err}
-		return
+	if tmpFile != nil {
+		fileChannel <- tempFileResult{File: tmpFile}
+	} else {
+		fileChannel <- tempFileResult{Err: tmpFileErr}
 	}
-	if _, err := tmpfile.Write(allBytes); err != nil {
-		tmpfile.Close()
-		fileChannel <- tempFileResult{Err: fmt.Errorf("couldn't write bytes to tempfile: %v", err)}
-	}
-
-	fileChannel <- tempFileResult{File: tmpfile}
 }
 
 // saveToTempFile creates a tempfile in `/tmp` and writes the content of the
