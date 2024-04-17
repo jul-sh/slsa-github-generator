@@ -520,8 +520,8 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 		fmt.Print("\n\n>>>>>>>>>>>>>> output from command <<<<<<<<<<<<<<\n")
 	}
 	var wg sync.WaitGroup
-	var fileChannel = make(chan tempFileResult, len(readers))
-	var printChannel = make(chan string)
+	fileChannel := make(chan tempFileResult, len(readers))
+	printChannel := make(chan string)
 
 	for _, reader := range readers {
 		wg.Add(1)
