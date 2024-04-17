@@ -500,6 +500,7 @@ func saveOneTempFile(verbose bool, reader io.Reader, fileChannel chan tempFileRe
 	tmpfile, err := os.CreateTemp("", "log-*.txt")
 	if err != nil {
 		fileChannel <- tempFileResult{Err: err}
+		tmpfile.Close()
 		return
 	}
 	defer tmpfile.Close()
@@ -530,13 +531,6 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 		}(reader)
 	}
 
-	// Close the channel once all goroutines have finished.
-	go func() {
-		wg.Wait()
-		close(printChannel)
-		close(fileChannel)
-	}()
-
 	for line := range printChannel {
 		fmt.Println(line)
 	}
@@ -548,6 +542,10 @@ func saveToTempFile(verbose bool, readers ...io.Reader) ([]string, error) {
 		}
 		files = append(files, result.File.Name())
 	}
+
+	wg.Wait()
+	close(printChannel)
+	close(fileChannel)
 
 	return files, nil
 }
